@@ -1,0 +1,228 @@
+/* ==================================
+   COLOR PALETTE (LOCKED)
+================================== */
+:root {
+  --dark: #031F33;
+  --navy: #123852;
+  --steel: #315D7D;
+  --steel-soft: #5D89A7;
+  --accent: #98BAD2;
+  --paper: #E7F4FD;
+
+  font-family: "Futura", sans-serif;
+}
+
+/* ==================================
+   GLOBAL RESET (TAME PICO)
+================================== */
+body {
+  margin: 0;
+  background-color: var(--steel-soft);
+  color: var(--navy);
+  font-weight: 300;
+}
+
+svg {
+  max-width: none; /* critical fix */
+}
+
+/* ==================================
+   NAVIGATION
+================================== */
+nav {
+  background-color: var(--steel);
+}
+
+.nav-logo {
+  height: 30px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* ==================================
+   HERO SECTION
+================================== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+
+  background: linear-gradient(
+    135deg,
+    var(--steel),
+    var(--dark)
+  );
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4);
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-logo {
+  width: 160px;
+  margin-bottom: 1rem;
+}
+
+.hero-btn,
+a.contrast {
+  background-color: var(--accent);
+  color: var(--dark) !important;
+  border-radius: 50px;
+  padding: 0.8rem 2rem;
+  font-weight: bold;
+}
+
+/* ==================================
+   FEATURES / ICONS (FIXED SIZE)
+================================== */
+.features {
+  margin-top: 3rem;
+}
+
+.features article {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid var(--accent);
+}
+
+.feature-icon {
+  width: 48px !important;
+  height: 48px !important;
+  fill: var(--steel-soft) !important;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+/* ==================================
+   CTA
+================================== */
+.cta-banner {
+  background: linear-gradient(135deg, var(--steel-soft), var(--dark));
+  height: 200px;
+  color: white;
+}
+
+/* ==================================
+   FOOTER
+================================== */
+footer {
+  background-color: var(--dark);
+  color: white;
+  width: 500%;
+  margin-left: -200%;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+/* ==================================
+   CLAPPERBOARD INTRO (CORRECT FIT)
+================================== */
+#intro {
+  position: fixed;
+  inset: 0;
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 1s ease;
+}
+
+/* PARENT HAS EXTRA HEADROOM */
+.clapper {
+  position: relative;
+  width: 150px;
+  height: 160px; /* FIXED */
+}
+
+/* TOP CLAPPER */
+.clapper-top {
+  position: absolute;
+  top: 20px; /* FIXED: gives rotation room */
+  left: 0;
+  width: 100%;
+  height: 36px;
+
+  background: repeating-linear-gradient(
+    45deg,
+    var(--navy),
+    var(--navy) 10px,
+    var(--paper) 10px,
+    var(--paper) 20px
+  );
+
+  border: 3px solid white;
+  border-radius: 4px;
+
+  transform-origin: left center;
+  transform: rotate(-35deg);
+  transition: transform 0.3s ease;
+
+  z-index: 2;
+}
+
+.clapper-top.close {
+  transform: rotate(0deg);
+}
+
+/* BOTTOM CLAPPER */
+.clapper-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+
+  background: white;
+  border: 3px solid var(--navy);
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--navy);
+  font-weight: bold;
+
+  z-index: 1;
+}
+
+.timecode {
+  animation: flicker 0.4s infinite;
+  letter-spacing: 1px;
+}
+
+/* ==================================
+   ANIMATION
+================================== */
+@keyframes flicker {
+  0%, 70%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0.4; }
+}
+
+
+.lock-icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--accent); /* uses your palette */
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  flex-shrink: 0;
+}

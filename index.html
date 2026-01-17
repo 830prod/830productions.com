@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>830 Productions | Where Every Frame Speaks</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+  <link rel="icon" type="image/png" href="/images/mainlogo.png" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Clapperboard Intro -->
+  <div id="intro">
+    <div class="clapper">
+      <div class="clapper-top"></div>
+      <div class="clapper-bottom">
+        <span class="timecode">00:08:30:23</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="container-fluid">
+    <ul>
+      <li>
+        <strong>
+         <img src="images/mainlogo.png" alt="830 Productions" class="nav-logo">
+          830 Productions
+        </strong>
+      </li>
+    </ul>
+<ul> <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="services.html">Services</a></li> 
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" role="button">Contact</a></li> 
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <!-- Background video -->
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="videos/hero.mp4" type="video/mp4" />
+      Your browser does not support HTML5 video.
+    </video>
+
+    <!-- Hero content -->
+    <div class="hero-content">
+      <img src="/images/New LOgo White PNG.png" alt="830 Productions Logo" class="hero-logo" />
+      <h1>Where Every Frame Speaks</h1>
+      <p>Cinematic storytelling through film and photography.</p>
+      <a href="#portfolio" class="contrast hero-btn">View Our Work</a>
+    </div>
+  </section>
+
+  <!-- Highlights Section -->
+  <main class="container" id="services">
+    <h2 class="center">Our Expertise</h2>
+
+    <div class="grid features">
+      <article>
+        <svg class="feature-icon" viewBox="0 0 24 24">
+          <path d="M4 4h16v16H4z" fill="none" stroke="currentColor" stroke-width="2" />
+          <path d="M8 12h8M8 8h8M8 16h8" />
+        </svg>
+        <h3>Cinematic Ads</h3>
+        <p>Crafting visual stories that elevate your brand identity.</p>
+      </article>
+
+      <article>
+        <svg class="feature-icon" viewBox="0 0 24 24">
+          <path d="M12 2a10 10 0 1010 10A10.011 10.011 0 0012 2z" />
+          <path d="M12 8a4 4 0 104 4 4.005 4.005 0 00-4-4z" />
+        </svg>
+        <h3>Weddings</h3>
+        <p>Capturing emotions and unforgettable memories.</p>
+      </article>
+
+      <article>
+        <svg class="feature-icon" viewBox="0 0 24 24">
+          <path d="M3 13h18M3 21h18M3 5h18M8 9h8M10 17h4"
+            stroke="currentColor" stroke-width="2" fill="none" />
+        </svg>
+        <h3>Real Estate</h3>
+        <p>Dynamic visuals that make listings stand out.</p>
+      </article>
+    </div>
+  </main>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner" id="contact">
+    <div class="container">
+      <h2>Let’s Create Something Unforgettable</h2>
+      <a href="#contact" class="contrast hero-btn">Book a Shoot</a>
+    </div>
+  </section>
+
+  <footer class="container footer-icons">
+    <small>
+      © 2025 830 Productions •
+      <a href="https://instagram.com/830_productions" target="_blank">Instagram</a>
+    </small>
+  </footer>
+
+  <!-- Intro Animation Script -->
+  <script>
+    window.addEventListener("load", () => {
+      const intro = document.getElementById("intro");
+      const top = document.querySelector(".clapper-top");
+
+      // Animate clapper closing
+      setTimeout(() => top.classList.add("close"), 500);
+
+      // Fade out intro
+      setTimeout(() => {
+        intro.style.opacity = "0";
+        setTimeout(() => (intro.style.display = "none"), 1000);
+      }, 1000);
+    });
+  </script>
+
+</body>
+</html>
