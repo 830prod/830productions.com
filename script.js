@@ -1,13 +1,37 @@
 (() => {
   const loader = document.querySelector('.site-loader');
+  const loaderQuip = document.querySelector('[data-loader-quip]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (loaderQuip) {
+    const quips = [
+      'Polishing pixels until they look expensive.',
+      'Loading the good angles and hiding the bad ones.',
+      'Negotiating with the render gods for a faster entrance.',
+      'Dusting off the dramatic slow motion.',
+      'Making sure the clapperboard feels emotionally supported.',
+      'Color grading the loading screen for maximum suspense.',
+      'Checking that every frame is at least 12% more cinematic.',
+      'Cueing the montage nobody asked for but everybody deserves.'
+    ];
+
+    loaderQuip.textContent = quips[Math.floor(Math.random() * quips.length)];
+  }
 
   window.addEventListener('load', () => {
     if (!loader) {
       return;
     }
 
-    loader.classList.add('is-hidden');
-    window.setTimeout(() => loader.remove(), 700);
+    loader.classList.add('is-closing');
+
+    const clapDuration = reduceMotion.matches ? 80 : 380;
+    const fadeDuration = reduceMotion.matches ? 220 : 700;
+
+    window.setTimeout(() => {
+      loader.classList.add('is-hidden');
+      window.setTimeout(() => loader.remove(), fadeDuration);
+    }, clapDuration);
   });
 
   const header = document.querySelector('.site-header');
