@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Book 830 Productions for photography and videography projects.">
+  <title>Book | 830 Productions</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="site-loader" aria-hidden="true">
+    <div class="loader-mark">
+      <span>830</span>
+      <p>Productions</p>
+    </div>
+  </div>
+
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand-mark" href="index.html" aria-label="830 Productions Home">
+        <img src="images/logo-icon.png" alt="830 Productions">
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="https://shop.830productions.com" target="_blank" rel="noreferrer" aria-label="Shop (opens in a new tab)">Shop <span class="external-link-indicator" aria-hidden="true">&#8599;</span></a>
+        <a href="book.html" aria-current="page">Book</a>
+        <a href="faq.html">FAQ</a>
+        <a href="legal.html">Legal</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero reveal">
+      <div class="hero-overlay" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <p class="eyebrow">Book 830 Productions</p>
+        <h1>Lock your date and launch your project with confidence.</h1>
+        <p>Tell us what you are building. We will map your production scope, timeline, and deliverables.</p>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="section-head">
+        <h2>Project Intake</h2>
+        <p>Complete this form to start. We respond with next steps, schedule confirmation, and an exact quote.</p>
+      </div>
+
+      <div class="booking-layout">
+        <article class="form-panel">
+          <h3>Booking Form</h3>
+
+          <form class="booking-form" action="mailto:830productions@gmail.com" method="post" enctype="text/plain">
+            <div class="form-grid">
+              <div class="field">
+                <label for="client-name">Full Name</label>
+                <input id="client-name" name="client_name" type="text" placeholder="Your name" required>
+              </div>
+
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" required>
+              </div>
+
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555">
+              </div>
+
+              <div class="field">
+                <label for="event-date">Preferred Date</label>
+                <input id="event-date" name="event_date" type="date" required>
+              </div>
+
+              <div class="field wide">
+                <label for="project-type">Project Type</label>
+                <select id="project-type" name="project_type">
+                  <option value="Brand Campaign">Brand Campaign</option>
+                  <option value="Real Estate Package">Real Estate Package</option>
+                  <option value="Event Coverage">Event Coverage</option>
+                  <option value="Custom">Custom Production</option>
+                </select>
+              </div>
+
+              <div class="field wide">
+                <label for="location">Shoot Location</label>
+                <input id="location" name="location" type="text" placeholder="City, venue, or address">
+              </div>
+
+              <div class="field wide">
+                <label>Package</label>
+                <div class="package-grid">
+                  <label class="package-option is-selected">
+                    <input type="radio" name="package" value="Signature Photo + Film" data-package-label="Signature Photo + Film" checked>
+                    <strong>Signature Photo + Film</strong>
+                    <small>Full-day coverage + highlight film</small>
+                  </label>
+
+                  <label class="package-option">
+                    <input type="radio" name="package" value="Event Story Package" data-package-label="Event Story Package">
+                    <strong>Event Story Package</strong>
+                    <small>Recap reel + social cutdowns</small>
+                  </label>
+
+                  <label class="package-option">
+                    <input type="radio" name="package" value="Brand Launch Package" data-package-label="Brand Launch Package">
+                    <strong>Brand Launch Package</strong>
+                    <small>Commercial sequence + stills</small>
+                  </label>
+
+                  <label class="package-option">
+                    <input type="radio" name="package" value="Custom Scope" data-package-label="Custom Scope">
+                    <strong>Custom Scope</strong>
+                    <small>Built around your exact needs</small>
+                  </label>
+                </div>
+              </div>
+
+              <div class="field wide">
+                <label>Preferred Time Window</label>
+                <div class="slot-grid">
+                  <button type="button" class="slot-button" data-slot="Morning (9:00 AM)">Morning</button>
+                  <button type="button" class="slot-button" data-slot="Midday (12:00 PM)">Midday</button>
+                  <button type="button" class="slot-button" data-slot="Evening (4:00 PM)">Evening</button>
+                </div>
+                <input type="hidden" name="selected_slot" id="selected-slot">
+              </div>
+
+              <div class="field wide">
+                <label for="notes">Project Notes</label>
+                <textarea id="notes" name="notes" rows="4" placeholder="Share your goals, style references, and deadline."></textarea>
+              </div>
+            </div>
+
+            <button class="btn-primary" type="submit">Submit Booking Request</button>
+            <p class="notice-success" role="status">Opening your email app with all booking details prefilled.</p>
+          </form>
+        </article>
+
+        <aside class="summary-panel">
+          <h3>Live Summary</h3>
+          <p>Your selections update here in real time.</p>
+
+          <ul class="summary-list">
+            <li>
+              <span>Name</span>
+              <strong data-summary="name">Your name</strong>
+            </li>
+            <li>
+              <span>Package</span>
+              <strong data-summary="package">Signature Photo + Film</strong>
+            </li>
+            <li>
+              <span>Date</span>
+              <strong data-summary="date">Select a date</strong>
+            </li>
+            <li>
+              <span>Location</span>
+              <strong data-summary="location">Project location</strong>
+            </li>
+            <li>
+              <span>Time Window</span>
+              <strong data-summary="slot">Pick a time</strong>
+            </li>
+          </ul>
+
+          <div class="social-strip">
+            <a href="mailto:book@830productions.com">book@830productions.com</a>
+            <a href="https://www.instagram.com/830_productions" target="_blank" rel="noreferrer">@830_productions</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© <span data-year></span> 830 Productions. Booking for ambitious clients and bold releases.</p>
+      <a href="https://shop.830productions.com" target="_blank" rel="noreferrer" aria-label="Add Shop Items (opens in a new tab)">Add Shop Items <span class="external-link-indicator" aria-hidden="true">&#8599;</span></a>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
