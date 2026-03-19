@@ -2,6 +2,8 @@
   const loader = document.querySelector('.site-loader');
   const loaderQuip = document.querySelector('[data-loader-quip]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const loaderShownAt = performance.now();
+  const minimumLoaderTime = 1400;
 
   if (loaderQuip) {
     const quips = [
@@ -23,15 +25,18 @@
       return;
     }
 
-    loader.classList.add('is-closing');
-
+    const elapsed = performance.now() - loaderShownAt;
+    const delayBeforeClose = Math.max(0, minimumLoaderTime - elapsed);
     const clapDuration = reduceMotion.matches ? 80 : 380;
     const fadeDuration = reduceMotion.matches ? 220 : 700;
 
     window.setTimeout(() => {
-      loader.classList.add('is-hidden');
-      window.setTimeout(() => loader.remove(), fadeDuration);
-    }, clapDuration);
+      loader.classList.add('is-closing');
+      window.setTimeout(() => {
+        loader.classList.add('is-hidden');
+        window.setTimeout(() => loader.remove(), fadeDuration);
+      }, clapDuration);
+    }, delayBeforeClose);
   });
 
   const header = document.querySelector('.site-header');
