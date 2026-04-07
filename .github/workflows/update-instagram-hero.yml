@@ -1,0 +1,43 @@
+name: Update Instagram Hero
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-instagram-hero
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Refresh latest Instagram post
+        run: |
+          chmod +x ./update-instagram-hero.sh
+          ./update-instagram-hero.sh
+
+      - name: Commit and push if the hero changed
+        run: |
+          git add -A data images videos
+
+          if git diff --cached --quiet; then
+            echo "No Instagram hero changes found."
+            exit 0
+          fi
+
+          git commit -m "Update latest Instagram hero media"
+          git push

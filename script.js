@@ -89,11 +89,98 @@
   }
 
   const printLegalButton = document.querySelector('[data-print-legal]');
+  const instagramHeroLink = document.querySelector('[data-instagram-hero-link]');
+  const instagramHeroFrame = document.querySelector('[data-instagram-hero-frame]');
+  const instagramHeroImage = document.querySelector('[data-instagram-hero-image]');
+  const instagramHeroVideo = document.querySelector('[data-instagram-hero-video]');
 
   if (printLegalButton instanceof HTMLButtonElement) {
     printLegalButton.addEventListener('click', () => {
       window.print();
     });
+  }
+
+  if (
+    instagramHeroLink instanceof HTMLAnchorElement &&
+    instagramHeroImage instanceof HTMLImageElement &&
+    instagramHeroVideo instanceof HTMLVideoElement
+  ) {
+    const formatInstagramDate = (timestamp) => {
+      const date = new Date(Number(timestamp) * 1000);
+
+      if (Number.isNaN(date.getTime())) {
+        return '';
+      }
+
+      return new Intl.DateTimeFormat('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      }).format(date);
+    };
+
+    const applyInstagramHero = (post) => {
+      if (!post || typeof post !== 'object') {
+        return;
+      }
+
+      const permalink = typeof post.permalink === 'string' && post.permalink ? post.permalink : instagramHeroLink.href;
+      const imagePath = typeof post.imagePath === 'string' && post.imagePath ? post.imagePath : instagramHeroImage.src;
+      const videoPath = typeof post.videoPath === 'string' ? post.videoPath : '';
+      const alt = typeof post.alt === 'string' && post.alt ? post.alt : 'Latest Instagram post from 830 Productions';
+      const mediaType = post.mediaType === 'video' && videoPath ? 'video' : 'image';
+      const formattedDate = formatInstagramDate(post.takenAt);
+      const width = Number(post.width);
+      const height = Number(post.height);
+      const mediaLabel = mediaType === 'video' ? 'video post' : 'post';
+
+      instagramHeroLink.href = permalink;
+      instagramHeroLink.setAttribute(
+        'aria-label',
+        formattedDate
+          ? `View latest Instagram ${mediaLabel} from ${formattedDate} (opens in a new tab)`
+          : `View latest Instagram ${mediaLabel} from 830 Productions (opens in a new tab)`
+      );
+      instagramHeroImage.src = imagePath;
+      instagramHeroImage.alt = alt;
+      instagramHeroVideo.poster = imagePath;
+
+      if (instagramHeroFrame instanceof HTMLElement && width > 0 && height > 0) {
+        instagramHeroFrame.style.aspectRatio = `${width} / ${height}`;
+      }
+
+      if (mediaType === 'video') {
+        instagramHeroVideo.src = videoPath;
+        instagramHeroVideo.hidden = false;
+        instagramHeroImage.hidden = true;
+        instagramHeroVideo.load();
+        const playPromise = instagramHeroVideo.play();
+
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {
+            instagramHeroVideo.hidden = true;
+            instagramHeroImage.hidden = false;
+          });
+        }
+      } else {
+        instagramHeroVideo.pause();
+        instagramHeroVideo.removeAttribute('src');
+        instagramHeroVideo.load();
+        instagramHeroVideo.hidden = true;
+        instagramHeroImage.hidden = false;
+      }
+    };
+
+    fetch('data/latest-instagram-post.json', { cache: 'no-store' })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Unable to load latest Instagram post');
+        }
+
+        return response.json();
+      })
+      .then(applyInstagramHero)
+      .catch(() => {});
   }
 
   const lightbox = document.querySelector('[data-lightbox]');

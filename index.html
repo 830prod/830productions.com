@@ -6,6 +6,7 @@
   <meta name="description" content="830 Productions delivers cinematic photography and videography for brands, events, and high-impact campaigns.">
   <title>830 Productions | Cinematic Photography + Videography</title>
   <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="stylesheet" href="https://use.typekit.net/ney4fwq.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,13 +15,11 @@
       <div class="loader-clapper">
         <div class="loader-clapper-top"></div>
         <div class="loader-clapper-body">
-          <div class="loader-clapper-labels">
-            <span>830 Productions</span>
-            <span>Scene 08</span>
-            <span>Take 30</span>
+          <div class="loader-clapper-lines" aria-hidden="true">
+            <span class="loader-clapper-line"></span>
+            <span class="loader-clapper-line"></span>
+            <div class="loader-clapper-gridline"></div>
           </div>
-          <p class="loader-clapper-caption">Timecode locked and camera rolling.</p>
-          <div class="loader-timecode">00:08:30</div>
         </div>
       </div>
       <p class="loader-quip" data-loader-quip>Loading the good angles...</p>
@@ -52,49 +51,51 @@
     <section class="hero hero-home reveal">
       <div class="hero-overlay" aria-hidden="true"></div>
 
-      <div class="hero-content">
-        <img class="hero-logo" src="images/logo-full.png" alt="830 Productions full logo">
-        <p class="eyebrow">Photography + Videography Studio</p>
-        <h1>Built for stories that should look unforgettable.</h1>
-        <p>We craft premium visual campaigns, event films, and editorial photography that keep attention locked from first frame to final cut.</p>
+      <div class="hero-home-layout">
+        <div class="hero-content">
+          <img class="hero-logo" src="images/logo-full.png" alt="830 Productions full logo">
+          <p class="eyebrow">Photography + Videography Studio</p>
+          <h1>Built for stories that should look unforgettable.</h1>
+          <p>We craft premium visual campaigns, event films, and editorial photography that keep attention locked from first frame to final cut.</p>
 
-        <div class="hero-actions">
-          <a class="btn-primary" href="book.html">Start a Project</a>
-          <a class="btn-secondary" href="https://shop.830productions.com" target="_blank" rel="noreferrer" aria-label="Shop Creative Packs (opens in a new tab)">Shop Creative Packs <span class="external-link-indicator" aria-hidden="true">&#8599;</span></a>
+          <div class="hero-actions">
+            <a class="btn-primary" href="book.html">Start a Project</a>
+            <a class="btn-secondary" href="https://shop.830productions.com" target="_blank" rel="noreferrer" aria-label="Shop Creative Packs (opens in a new tab)">Shop Creative Packs <span class="external-link-indicator" aria-hidden="true">&#8599;</span></a>
+          </div>
+
+          <div class="service-marquee" aria-label="Service highlights">
+            <span>Brand Films</span>
+            <span>Commercial Campaigns</span>
+            <span>Real Estate</span>
+            <span>Event Coverage</span>
+            <span>Social Reels</span>
+          </div>
         </div>
 
-        <div class="service-marquee" aria-label="Service highlights">
-          <span>Brand Films</span>
-          <span>Commercial Campaigns</span>
-          <span>Real Estate</span>
-          <span>Event Coverage</span>
-          <span>Social Reels</span>
-        </div>
+        <aside class="hero-visual" aria-label="830 Productions featured visual">
+          <a class="hero-preview-card" data-instagram-hero-link href="https://www.instagram.com/p/DWCqgD6D5yN/" target="_blank" rel="noreferrer" aria-label="View latest Instagram post from 830 Productions (opens in a new tab)">
+            <div class="hero-preview-frame" data-instagram-hero-frame>
+              <img data-instagram-hero-image src="images/latest-instagram-featured.jpg" alt="Latest Instagram post featuring moody Princeton University architecture">
+              <video data-instagram-hero-video hidden muted loop playsinline preload="metadata" poster="images/latest-instagram-featured.jpg"></video>
+            </div>
+          </a>
+        </aside>
+      </div>
+
+      <div class="hero-bottom-strip" aria-label="830 Productions positioning">
+        <span>Direction-led production</span>
+        <span>Clean delivery systems</span>
+        <span>Frames built for replay value</span>
+        <span>Luxury look without wasted motion</span>
       </div>
     </section>
 
-    <!-- <section class="stats-grid reveal" aria-label="Company stats">
-      <article class="stat-card">
-        <strong class="stat-value" data-target="340" data-suffix="+">0+</strong>
-        <span class="stat-label">Projects Delivered</span>
-      </article>
-      <article class="stat-card">
-        <strong class="stat-value" data-target="92" data-suffix="%">0%</strong>
-        <span class="stat-label">Repeat Clients</span>
-      </article>
-      <article class="stat-card">
-        <strong class="stat-value" data-target="7" data-suffix=" Days">0 Days</strong>
-        <span class="stat-label">Average Turnaround</span>
-      </article>
-      <article class="stat-card">
-        <strong class="stat-value" data-target="830">0</strong>
-        <span class="stat-label">Shots Checked Per Edit</span>
-      </article>
-    </section>
-      -->
     <section class="section reveal" id="services">
       <div class="section-head">
-        <h2>What We Produce</h2>
+        <div>
+          <p class="section-kicker">Services</p>
+          <h2>What We Produce</h2>
+        </div>
         <p>Your visuals should feel expensive, intentional, and impossible to skip. Our team builds full story arcs, not just clips.</p>
       </div>
 
@@ -121,7 +122,10 @@
 
     <section class="section reveal" id="featured-work">
       <div class="section-head">
-        <h2>Featured Frames</h2>
+        <div>
+          <p class="section-kicker">Portfolio</p>
+          <h2>Featured Frames</h2>
+        </div>
         <p>A curated mix of moments from your latest captures. Tap any frame to view it full-size.</p>
       </div>
 
@@ -177,7 +181,10 @@
 
     <section class="section reveal" id="process">
       <div class="section-head">
-        <h2>How We Build It</h2>
+        <div>
+          <p class="section-kicker">Process</p>
+          <h2>How We Build It</h2>
+        </div>
         <p>A fast, structured process that keeps projects clear and on schedule.</p>
       </div>
 

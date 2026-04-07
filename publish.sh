@@ -7,6 +7,12 @@ if [[ $# -lt 1 ]]; then
   exit 1
 fi
 
+if [[ -x ./update-instagram-hero.sh ]]; then
+  if ! ./update-instagram-hero.sh; then
+    echo "Instagram hero refresh skipped."
+  fi
+fi
+
 git add -A
 
 if git diff --cached --quiet; then
