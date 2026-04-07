@@ -1785,18 +1785,42 @@ main {
 }
 
 @media (max-width: 1060px) {
-  .hero-home-layout,
   .section-head {
     grid-template-columns: 1fr;
   }
 
   .hero-home-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(250px, 0.62fr);
     gap: 0.75rem;
+    padding: 1.2rem;
+  }
+
+  .hero-home .hero-content {
+    max-width: 540px;
+    padding: 1.25rem 1.3rem 1.4rem;
+  }
+
+  .hero-home .hero-content h1 {
+    font-size: clamp(2.2rem, 4.8vw, 4rem);
+  }
+
+  .hero-home .hero-content > p:not(.eyebrow) {
+    max-width: 42ch;
+    font-size: 0.95rem;
   }
 
   .hero-visual {
-    min-height: 420px;
-    padding: 0 0.2rem 0.4rem;
+    min-height: 100%;
+    padding: 0 0.15rem 0.2rem;
+  }
+
+  .hero-preview-card {
+    width: min(100%, 300px);
+    transform: rotate(1.4deg);
+  }
+
+  .service-marquee {
+    max-width: 28rem;
   }
 
   .section-head p {
@@ -1827,6 +1851,23 @@ main {
   .summary-panel,
   .inquiry-card {
     position: static;
+  }
+}
+
+@media (max-width: 920px) {
+  .hero-home-layout {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .hero-visual {
+    min-height: 420px;
+    padding: 0 0.2rem 0.4rem;
+  }
+
+  .hero-preview-card {
+    width: min(100%, 360px);
+    transform: rotate(1.6deg);
   }
 }
 
