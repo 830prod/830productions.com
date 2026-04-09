@@ -28,7 +28,7 @@ jobs:
       - name: Refresh latest Instagram post
         run: |
           chmod +x ./update-instagram-hero.sh
-          ./update-instagram-hero.sh
+          bash ./update-instagram-hero.sh
 
       - name: Commit and push if the hero changed
         run: |
