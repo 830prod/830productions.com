@@ -3,18 +3,18 @@
   const loaderQuip = document.querySelector('[data-loader-quip]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const loaderShownAt = performance.now();
-  const minimumLoaderTime = 1400;
+  const minimumLoaderTime = 900;
+  const markPageLoaded = () => {
+    document.body.classList.add('is-loaded');
+  };
 
   if (loaderQuip) {
     const quips = [
-      'Polishing pixels until they look expensive.',
-      'Loading the good angles and hiding the bad ones.',
-      'Negotiating with the render gods for a faster entrance.',
-      'Dusting off the dramatic slow motion.',
-      'Making sure the clapperboard feels emotionally supported.',
-      'Color grading the loading screen for maximum suspense.',
-      'Checking that every frame is at least 12% more cinematic.',
-      'Cueing the montage nobody asked for but everybody deserves.'
+      'Cueing the opening frame.',
+      'Balancing light, shadow, and timing.',
+      'Dialing in the first impression.',
+      'Lining up the next scene.',
+      'Preparing the next release.'
     ];
 
     loaderQuip.textContent = quips[Math.floor(Math.random() * quips.length)];
@@ -22,6 +22,7 @@
 
   window.addEventListener('load', () => {
     if (!loader) {
+      markPageLoaded();
       return;
     }
 
@@ -34,6 +35,7 @@
       loader.classList.add('is-closing');
       window.setTimeout(() => {
         loader.classList.add('is-hidden');
+        markPageLoaded();
         window.setTimeout(() => loader.remove(), fadeDuration);
       }, clapDuration);
     }, delayBeforeClose);
@@ -50,6 +52,34 @@
 
   applyHeaderState();
   window.addEventListener('scroll', applyHeaderState, { passive: true });
+
+  const hero = document.querySelector('.hero-home');
+  const heroVideo = document.querySelector('[data-hero-video]');
+
+  if (hero instanceof HTMLElement && heroVideo instanceof HTMLVideoElement && !reduceMotion.matches) {
+    let heroTicking = false;
+
+    const updateHeroParallax = () => {
+      const rect = hero.getBoundingClientRect();
+      const offset = Math.max(Math.min(rect.top * -0.08, 28), -12);
+
+      hero.style.setProperty('--hero-parallax', `${offset.toFixed(2)}px`);
+      heroTicking = false;
+    };
+
+    const requestHeroParallax = () => {
+      if (heroTicking) {
+        return;
+      }
+
+      heroTicking = true;
+      window.requestAnimationFrame(updateHeroParallax);
+    };
+
+    updateHeroParallax();
+    window.addEventListener('scroll', requestHeroParallax, { passive: true });
+    window.addEventListener('resize', requestHeroParallax);
+  }
 
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.site-nav');
@@ -235,7 +265,7 @@
     });
   }
 
-  const revealNodes = document.querySelectorAll('.reveal');
+  const revealNodes = document.querySelectorAll('.reveal, .reveal-scale');
 
   if ('IntersectionObserver' in window && revealNodes.length > 0) {
     const revealObserver = new IntersectionObserver(
@@ -346,6 +376,10 @@
   const glow = document.querySelector('.cursor-glow');
 
   if (glow) {
+    if (window.matchMedia('(pointer: fine)').matches) {
+      document.body.classList.add('cursor-ready');
+    }
+
     window.addEventListener(
       'pointermove',
       (event) => {
@@ -354,7 +388,62 @@
       },
       { passive: true }
     );
+
+    document.querySelectorAll('a, button, input, select, textarea, summary').forEach((node) => {
+      node.addEventListener('pointerenter', () => {
+        document.body.classList.add('cursor-active');
+      });
+
+      node.addEventListener('pointerleave', () => {
+        document.body.classList.remove('cursor-active');
+      });
+
+      node.addEventListener('focus', () => {
+        document.body.classList.add('cursor-active');
+      });
+
+      node.addEventListener('blur', () => {
+        document.body.classList.remove('cursor-active');
+      });
+    });
   }
+
+  const previewCards = document.querySelectorAll('[data-hover-preview]');
+
+  previewCards.forEach((card) => {
+    const previewVideo = card.querySelector('.mosaic-preview');
+
+    if (!(previewVideo instanceof HTMLVideoElement)) {
+      return;
+    }
+
+    let loaded = false;
+    const stopPreview = () => {
+      previewVideo.pause();
+
+      if (previewVideo.readyState > 0) {
+        previewVideo.currentTime = 0;
+      }
+    };
+
+    const startPreview = () => {
+      if (!loaded) {
+        previewVideo.load();
+        loaded = true;
+      }
+
+      const playPromise = previewVideo.play();
+
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {});
+      }
+    };
+
+    card.addEventListener('pointerenter', startPreview);
+    card.addEventListener('pointerleave', stopPreview);
+    card.addEventListener('focusin', startPreview);
+    card.addEventListener('focusout', stopPreview);
+  });
 
   document.querySelectorAll('[data-year]').forEach((node) => {
     node.textContent = String(new Date().getFullYear());
