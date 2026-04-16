@@ -1953,15 +1953,21 @@ body.cursor-active .cursor-glow {
 }
 
 .hero-media {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: clamp(1rem, 2.8vw, 1.9rem) clamp(1rem, 3.2vw, 2.4rem) clamp(0.9rem, 2.2vw, 1.5rem);
   overflow: hidden;
 }
 
 .hero-bg-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: translate3d(0, var(--hero-parallax, 0px), 0) scale(1.14);
-  transform-origin: center center;
+  width: auto;
+  height: min(82%, calc(100% - clamp(1.75rem, 4vw, 3.25rem)));
+  max-width: min(38vw, 500px);
+  object-fit: contain;
+  object-position: center center;
+  transform: translate3d(clamp(0.4rem, 1.2vw, 0.9rem), var(--hero-parallax, 0px), 0) scale(1.01);
+  transform-origin: center right;
   filter: brightness(0.68) saturate(1.02) contrast(1.08);
   will-change: transform;
 }
@@ -2803,6 +2809,12 @@ body.is-loaded .hero-preview-card:hover,
     min-height: 760px;
   }
 
+  .hero-bg-video {
+    height: min(76%, calc(100% - 2.8rem));
+    max-width: min(52vw, 430px);
+    transform: translate3d(0.45rem, var(--hero-parallax, 0px), 0) scale(1.01);
+  }
+
   .hero-visual {
     justify-content: flex-start;
     padding-top: 0;
@@ -2818,6 +2830,16 @@ body.is-loaded .hero-preview-card:hover,
 @media (max-width: 680px) {
   .hero-home {
     min-height: 640px;
+  }
+
+  .hero-media {
+    padding: 0.9rem 0.9rem 0.6rem;
+  }
+
+  .hero-bg-video {
+    height: min(68%, calc(100% - 3.2rem));
+    max-width: min(62vw, 320px);
+    transform: translate3d(0, var(--hero-parallax, 0px), 0) scale(1);
   }
 
   .hero-home .hero-content {
