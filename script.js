@@ -358,6 +358,121 @@
     card.addEventListener('focusout', stopPreview);
   });
 
+  const newsletterForm = document.querySelector('.newsletter-form');
+
+  if (newsletterForm instanceof HTMLFormElement) {
+    const newsletterButton = newsletterForm.querySelector('.newsletter-submit');
+    const newsletterStatus = newsletterForm.querySelector('[data-newsletter-status]');
+    const newsletterMessage = newsletterForm.querySelector('[data-newsletter-message]');
+    let activeNewsletterScript = null;
+    let activeNewsletterCallback = '';
+    let newsletterTimeout = 0;
+
+    const setNewsletterState = (state, message) => {
+      newsletterForm.setAttribute('data-state', state);
+
+      if (newsletterMessage instanceof HTMLElement) {
+        newsletterMessage.textContent = message;
+      }
+
+      if (newsletterStatus instanceof HTMLElement) {
+        newsletterStatus.classList.add('is-visible');
+      }
+
+      if (newsletterButton instanceof HTMLButtonElement) {
+        newsletterButton.disabled = state === 'loading';
+        newsletterButton.textContent = state === 'loading' ? 'Sending...' : state === 'success' ? 'Subscribed' : 'Subscribe';
+      }
+    };
+
+    const cleanNewsletterJsonp = (callbackName) => {
+      if (newsletterTimeout) {
+        window.clearTimeout(newsletterTimeout);
+        newsletterTimeout = 0;
+      }
+
+      if (activeNewsletterScript) {
+        activeNewsletterScript.remove();
+        activeNewsletterScript = null;
+      }
+
+      activeNewsletterCallback = '';
+
+      try {
+        delete window[callbackName];
+      } catch (_error) {
+        window[callbackName] = undefined;
+      }
+    };
+
+    newsletterForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      if (!newsletterForm.reportValidity()) {
+        setNewsletterState('error', 'Drop in a valid email first.');
+        return;
+      }
+
+      const formData = new FormData(newsletterForm);
+      const audienceId = String(formData.get('id') || '');
+      const userId = String(formData.get('u') || '');
+      const callbackName = `mailchimpSignup${Date.now()}`;
+      const params = new URLSearchParams();
+
+      formData.forEach((value, key) => {
+        params.append(key, String(value));
+      });
+      params.set('c', callbackName);
+
+      if (!audienceId || !userId) {
+        setNewsletterState('error', 'Signup is missing its Mailchimp list settings.');
+        return;
+      }
+
+      if (activeNewsletterCallback) {
+        cleanNewsletterJsonp(activeNewsletterCallback);
+      }
+
+      setNewsletterState('loading', 'Sending your signup...');
+      activeNewsletterCallback = callbackName;
+
+      window[callbackName] = (response) => {
+        cleanNewsletterJsonp(callbackName);
+
+        if (response && response.result === 'success') {
+          newsletterForm.reset();
+          setNewsletterState('success', 'Confirmed. You are on the list.');
+          return;
+        }
+
+        const fallbackMessage = 'Mailchimp could not confirm that signup. Try again in a moment.';
+        const responseMessage = response && typeof response.msg === 'string' ? response.msg.replace(/<[^>]*>/g, '') : '';
+
+        if (/already subscribed/i.test(responseMessage)) {
+          setNewsletterState('success', 'Confirmed. You are already on the list.');
+          return;
+        }
+
+        setNewsletterState('error', responseMessage || fallbackMessage);
+      };
+
+      newsletterTimeout = window.setTimeout(() => {
+        cleanNewsletterJsonp(callbackName);
+        setNewsletterState('error', 'Mailchimp took too long to respond. Please try again.');
+      }, 10000);
+
+      const jsonpUrl = `https://830productions.us7.list-manage.com/subscribe/post-json?${params.toString()}`;
+      activeNewsletterScript = document.createElement('script');
+      activeNewsletterScript.src = jsonpUrl;
+      activeNewsletterScript.async = true;
+      activeNewsletterScript.onerror = () => {
+        cleanNewsletterJsonp(callbackName);
+        setNewsletterState('error', 'Could not reach Mailchimp. Check your connection and try again.');
+      };
+      document.body.appendChild(activeNewsletterScript);
+    });
+  }
+
   document.querySelectorAll('[data-year]').forEach((node) => {
     node.textContent = String(new Date().getFullYear());
   });
