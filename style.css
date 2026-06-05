@@ -2473,6 +2473,309 @@ body.is-loaded .hero-preview-card:hover,
   border-radius: 6px;
 }
 
+.newsletter-band {
+  position: relative;
+  margin-top: clamp(4.5rem, 8vw, 6rem);
+  padding: clamp(1.25rem, 3.5vw, 2rem);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+  gap: clamp(1.2rem, 3vw, 2rem);
+  align-items: end;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background:
+    linear-gradient(110deg, rgba(5, 5, 6, 0.96) 0%, rgba(13, 18, 22, 0.94) 48%, rgba(3, 31, 51, 0.88) 100%),
+    rgba(5, 5, 6, 0.95);
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.28);
+}
+
+.newsletter-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent 18%),
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: auto, 100% 18px;
+  opacity: 0.5;
+}
+
+.newsletter-copy,
+.newsletter-form {
+  position: relative;
+  z-index: 1;
+}
+
+.newsletter-copy {
+  max-width: 34rem;
+}
+
+.newsletter-copy h2 {
+  margin-bottom: 0.75rem;
+  font-size: clamp(2rem, 4.2vw, 3.6rem);
+  letter-spacing: 0;
+}
+
+.newsletter-copy p:not(.section-kicker) {
+  max-width: 42ch;
+  color: rgba(245, 243, 239, 0.74);
+}
+
+.newsletter-form {
+  padding: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+}
+
+.newsletter-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  align-items: end;
+}
+
+.newsletter-field {
+  min-width: 0;
+  display: grid;
+  gap: 0.34rem;
+}
+
+.newsletter-field-email,
+.newsletter-field-birthday {
+  grid-column: span 2;
+}
+
+.newsletter-field span,
+.newsletter-field legend {
+  padding-left: 0.15rem;
+  color: rgba(245, 243, 239, 0.58);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.newsletter-field small {
+  margin-left: 0.34rem;
+  display: inline-flex;
+  transform: translateY(-0.03rem);
+  padding: 0.14rem 0.26rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(245, 243, 239, 0.58);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+}
+
+.newsletter-field small.is-required {
+  background: rgba(245, 243, 239, 0.94);
+  color: #050505;
+}
+
+.newsletter-field input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  padding: 0.72rem 0.82rem;
+  background: rgba(3, 31, 51, 0.48);
+  color: var(--blue-100);
+  font: inherit;
+}
+
+.newsletter-field input::placeholder {
+  color: rgba(245, 243, 239, 0.38);
+}
+
+.newsletter-field input:focus {
+  outline: none;
+  border-color: rgba(245, 243, 239, 0.72);
+  box-shadow: 0 0 0 3px rgba(245, 243, 239, 0.12);
+}
+
+.newsletter-field-birthday {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.newsletter-birthday-inputs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.newsletter-birthday-inputs label {
+  min-width: 0;
+  display: grid;
+  gap: 0.34rem;
+}
+
+.newsletter-birthday-inputs span {
+  color: rgba(245, 243, 239, 0.46);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+}
+
+.newsletter-submit {
+  grid-column: 1 / -1;
+  justify-self: end;
+  min-width: min(100%, 180px);
+  min-height: 48px;
+  border: none;
+  border-radius: 6px;
+  padding: 0.82rem 1.05rem;
+  background: linear-gradient(180deg, #f5f3ef, #d9d6d1);
+  color: #050505;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.newsletter-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.34);
+}
+
+.newsletter-submit:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
+}
+
+.newsletter-status {
+  margin-top: 0.62rem;
+  min-height: 1.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: rgba(245, 243, 239, 0.68);
+  font-size: 0.84rem;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.22s ease, transform 0.22s ease, color 0.22s ease;
+}
+
+.newsletter-status.is-visible,
+.newsletter-form[data-state="success"] .newsletter-status,
+.newsletter-form[data-state="error"] .newsletter-status,
+.newsletter-form[data-state="loading"] .newsletter-status {
+  opacity: 1;
+  transform: none;
+}
+
+.newsletter-check {
+  position: relative;
+  flex: 0 0 auto;
+  width: 1.22rem;
+  height: 1.22rem;
+  border: 1px solid rgba(245, 243, 239, 0.34);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: background 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+}
+
+.newsletter-check::after {
+  content: "";
+  position: absolute;
+  left: 0.33rem;
+  top: 0.14rem;
+  width: 0.34rem;
+  height: 0.68rem;
+  border: solid #050505;
+  border-width: 0 2px 2px 0;
+  opacity: 0;
+  transform: rotate(38deg) scale(0.6);
+  transform-origin: center;
+}
+
+.newsletter-form[data-state="loading"] .newsletter-check {
+  border-color: rgba(245, 243, 239, 0.46);
+  animation: newsletter-pulse 0.9s ease-in-out infinite;
+}
+
+.newsletter-form[data-state="success"] .newsletter-status {
+  color: rgba(245, 243, 239, 0.92);
+}
+
+.newsletter-form[data-state="success"] .newsletter-check {
+  border-color: transparent;
+  background: #f5f3ef;
+  animation: newsletter-pop 0.34s cubic-bezier(0.2, 1.2, 0.26, 1);
+}
+
+.newsletter-form[data-state="success"] .newsletter-check::after {
+  opacity: 1;
+  animation: newsletter-checkmark 0.34s ease 0.08s both;
+}
+
+.newsletter-form[data-state="error"] .newsletter-status {
+  color: rgba(255, 214, 198, 0.92);
+}
+
+.newsletter-form[data-state="error"] .newsletter-check {
+  border-color: rgba(255, 214, 198, 0.5);
+  background:
+    linear-gradient(45deg, transparent 45%, rgba(255, 214, 198, 0.9) 45% 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, rgba(255, 214, 198, 0.9) 45% 55%, transparent 55%),
+    rgba(255, 214, 198, 0.08);
+}
+
+.newsletter-honeypot {
+  position: absolute;
+  left: -5000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@keyframes newsletter-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.82);
+  }
+}
+
+@keyframes newsletter-pop {
+  0% {
+    transform: scale(0.78);
+  }
+
+  70% {
+    transform: scale(1.13);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes newsletter-checkmark {
+  0% {
+    opacity: 0;
+    transform: rotate(38deg) scale(0.4);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(38deg) scale(1);
+  }
+}
+
 @keyframes scroll-indicator {
   0% {
     transform: translateY(0);
@@ -2549,7 +2852,8 @@ body.is-loaded .hero-preview-card:hover,
 
   .about-split,
   .shop-layout,
-  .booking-layout {
+  .booking-layout,
+  .newsletter-band {
     grid-template-columns: 1fr;
   }
 
@@ -2897,6 +3201,21 @@ body.is-loaded .hero-preview-card:hover,
     grid-template-columns: 1fr;
   }
 
+  .newsletter-band {
+    margin-top: 4rem;
+    padding: 1rem;
+  }
+
+  .newsletter-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .newsletter-field-email,
+  .newsletter-field-birthday,
+  .newsletter-submit {
+    grid-column: 1;
+  }
+
   .about-home-shot img {
     min-height: 320px;
   }
@@ -2940,6 +3259,8 @@ body.is-loaded .hero-preview-card:hover,
   .hero-bg-video,
   .hero-home .hero-content > *,
   .hero-preview-card,
+  .newsletter-check,
+  .newsletter-check::after,
   .reveal,
   .reveal-scale img,
   .reveal-scale video,
@@ -2947,6 +3268,12 @@ body.is-loaded .hero-preview-card:hover,
   .mosaic-item video {
     transition-duration: 0.01ms !important;
     transform: none !important;
+  }
+
+  .newsletter-form[data-state="loading"] .newsletter-check,
+  .newsletter-form[data-state="success"] .newsletter-check,
+  .newsletter-form[data-state="success"] .newsletter-check::after {
+    animation: none !important;
   }
 }
 
