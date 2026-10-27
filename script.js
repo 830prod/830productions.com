@@ -706,8 +706,36 @@
       field.addEventListener('change', updateSummary);
     });
 
+    const servicesHint = bookingForm.querySelector('#services-hint');
+    const serviceBoxes = bookingForm.querySelectorAll('input[name="services"]');
+
+    serviceBoxes.forEach((box) => {
+      box.addEventListener('change', () => {
+        if (servicesHint) {
+          servicesHint.classList.remove('is-error');
+          servicesHint.textContent = 'Choose at least one.';
+        }
+      });
+    });
+
     bookingForm.addEventListener('submit', (event) => {
       event.preventDefault();
+
+      const services = [...serviceBoxes]
+        .filter((box) => box instanceof HTMLInputElement && box.checked)
+        .map((box) => box.value);
+
+      if (serviceBoxes.length > 0 && services.length === 0) {
+        if (servicesHint) {
+          servicesHint.classList.add('is-error');
+          servicesHint.textContent = 'Choose at least one service before sending.';
+        }
+        const firstBox = serviceBoxes[0];
+        if (firstBox instanceof HTMLInputElement) {
+          firstBox.focus();
+        }
+        return;
+      }
 
       const selectedPackage = bookingForm.querySelector('input[name="package"]:checked');
       const packageLabel =
@@ -716,6 +744,9 @@
       const clientName = readField('#client-name');
       const clientEmail = readField('#email');
       const clientPhone = readField('#phone');
+      const company = readField('#company');
+      const budget = readField('#budget');
+      const referralSource = readField('#referral-source');
       const selectedDate = readField('#event-date');
       const projectType = readField('#project-type');
       const location = readField('#location');
@@ -728,11 +759,15 @@
         `Name: ${clientName || 'Not provided'}`,
         `Email: ${clientEmail || 'Not provided'}`,
         `Phone: ${clientPhone || 'Not provided'}`,
+        `Company: ${company || 'Not provided'}`,
         `Preferred Date: ${selectedDate || 'Not provided'}`,
         `Preferred Time: ${selectedSlot}`,
         `Project Type: ${projectType || 'Not provided'}`,
         `Package: ${packageLabel}`,
         `Location: ${location || 'Not provided'}`,
+        `Budget: ${budget || 'Not provided'}`,
+        `Services: ${services.join(', ') || 'Not provided'}`,
+        `Heard About Us: ${referralSource || 'Not provided'}`,
         '',
         'Project Notes:',
         notes || 'None',

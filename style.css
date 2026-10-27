@@ -1618,6 +1618,57 @@ legend.field-label {
   color: var(--haze);
 }
 
+.field-hint {
+  margin: 0 0 12px;
+  font-size: 16px;
+  color: var(--haze);
+}
+
+.field-hint.is-error {
+  font-weight: 600;
+  color: var(--ice);
+}
+
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.check-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 15px;
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+
+.check-option:hover {
+  border-color: rgba(152, 186, 210, 0.5);
+}
+
+.check-option input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--ice);
+}
+
+.check-option:has(input:checked) {
+  border-color: var(--ice);
+  background: rgba(231, 244, 253, 0.06);
+}
+
+.check-option:focus-within {
+  outline: 2px solid var(--haze);
+  outline-offset: 2px;
+}
+
 .slot-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

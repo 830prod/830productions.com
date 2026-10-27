@@ -89,18 +89,40 @@
               </div>
 
               <div class="field">
+                <label for="company">Company</label>
+                <input id="company" name="company" type="text" placeholder="Company or brand name" autocomplete="organization">
+              </div>
+
+              <div class="field">
                 <label for="event-date">Preferred date</label>
                 <input id="event-date" name="event_date" type="date" required>
               </div>
 
-              <div class="field wide">
+              <div class="field">
                 <label for="project-type">Project type</label>
                 <select id="project-type" name="project_type">
                   <option value="Brand Campaign">Brand Campaign</option>
                   <option value="Senior Portraits">Senior Portraits</option>
                   <option value="Real Estate Package">Real Estate Package</option>
                   <option value="Event Coverage">Event Coverage</option>
+                  <option value="Wedding">Wedding</option>
+                  <option value="Product">Product</option>
+                  <option value="Social Media">Social Media</option>
+                  <option value="Music Video">Music Video</option>
+                  <option value="Corporate">Corporate</option>
                   <option value="Custom">Custom Production</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="budget">Budget</label>
+                <select id="budget" name="budget">
+                  <option value="">Select a range</option>
+                  <option value="Under $1,000">Under $1,000</option>
+                  <option value="$1,000 - $2,500">$1,000 – $2,500</option>
+                  <option value="$2,500 - $5,000">$2,500 – $5,000</option>
+                  <option value="$5,000+">$5,000+</option>
+                  <option value="Custom Quote / Not Sure Yet">Not sure yet</option>
                 </select>
               </div>
 
@@ -108,6 +130,33 @@
                 <label for="location">Shoot location</label>
                 <input id="location" name="location" type="text" placeholder="City, venue or address">
               </div>
+
+              <div class="field wide">
+                <label for="referral-source">How did you hear about us?</label>
+                <select id="referral-source" name="referral_source">
+                  <option value="">Select an option</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="Search">Search</option>
+                  <option value="Referral">Referral</option>
+                  <option value="Repeat Client">Repeat client</option>
+                  <option value="Links Page">Links page</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <fieldset class="field wide" data-services-group>
+                <legend class="field-label">Services needed</legend>
+                <p class="field-hint" id="services-hint">Choose at least one.</p>
+                <div class="check-grid">
+                  <label class="check-option"><input type="checkbox" name="services" value="Videography"><span>Videography</span></label>
+                  <label class="check-option"><input type="checkbox" name="services" value="Photography"><span>Photography</span></label>
+                  <label class="check-option"><input type="checkbox" name="services" value="Editing"><span>Editing</span></label>
+                  <label class="check-option"><input type="checkbox" name="services" value="Color Grading"><span>Colour grading</span></label>
+                  <label class="check-option"><input type="checkbox" name="services" value="Social Content"><span>Social content</span></label>
+                  <label class="check-option"><input type="checkbox" name="services" value="Full Production"><span>Full production</span></label>
+                  <label class="check-option"><input type="checkbox" name="services" value="Other"><span>Other</span></label>
+                </div>
+              </fieldset>
 
               <fieldset class="field wide">
                 <legend class="field-label">Package</legend>
@@ -223,6 +272,7 @@
               <li><a href="faq.html">FAQ</a></li>
               <li><a href="links.html">Links</a></li>
               <li><a href="contact.html">Contact</a></li>
+              <li><a href="newsletter.html">Newsletter</a></li>
               <li><a href="legal.html">Legal</a></li>
             </ul>
           </div>
