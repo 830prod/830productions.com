@@ -1,507 +1,5 @@
 (() => {
-  const loader = document.querySelector('.site-loader');
-  const loaderQuip = document.querySelector('[data-loader-quip]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const loaderShownAt = performance.now();
-  const minimumLoaderTime = 900;
-  const markPageLoaded = () => {
-    document.body.classList.add('is-loaded');
-  };
-
-  if (loaderQuip) {
-    const quips = [
-      'Cueing the opening frame.',
-      'Balancing light, shadow, and timing.',
-      'Dialing in the first impression.',
-      'Lining up the next scene.',
-      'Preparing the next release.'
-    ];
-
-    loaderQuip.textContent = quips[Math.floor(Math.random() * quips.length)];
-  }
-
-  window.addEventListener('load', () => {
-    if (!loader) {
-      markPageLoaded();
-      return;
-    }
-
-    const elapsed = performance.now() - loaderShownAt;
-    const delayBeforeClose = Math.max(0, minimumLoaderTime - elapsed);
-    const clapDuration = reduceMotion.matches ? 80 : 380;
-    const fadeDuration = reduceMotion.matches ? 220 : 700;
-
-    window.setTimeout(() => {
-      loader.classList.add('is-closing');
-      window.setTimeout(() => {
-        loader.classList.add('is-hidden');
-        markPageLoaded();
-        window.setTimeout(() => loader.remove(), fadeDuration);
-      }, clapDuration);
-    }, delayBeforeClose);
-  });
-
-  const siteData = typeof window.SITE_DATA === 'object' && window.SITE_DATA !== null ? window.SITE_DATA : null;
-  const pageQuery = new URLSearchParams(window.location.search);
-  const portfolioProjects = siteData && Array.isArray(siteData.portfolioProjects) ? siteData.portfolioProjects : [];
-  const portfolioProjectMap = new Map(portfolioProjects.map((project) => [project.id, project]));
-
-  const slugify = (value) =>
-    String(value)
-      .trim()
-      .toLowerCase()
-      .replace(/&/g, ' and ')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-
-  const iconMarkup = (iconName) => {
-    switch (iconName) {
-      case 'calendar':
-        return `
-          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-            <rect x="4" y="5" width="16" height="15" rx="3"></rect>
-            <path d="M8 3v4"></path>
-            <path d="M16 3v4"></path>
-            <path d="M4 10h16"></path>
-            <path d="M12 13v4"></path>
-            <path d="M10 15h4"></path>
-          </svg>
-        `;
-      case 'instagram':
-        return `
-          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-            <rect x="4.5" y="4.5" width="15" height="15" rx="4"></rect>
-            <circle cx="12" cy="12" r="3.5"></circle>
-            <circle cx="16.4" cy="7.6" r="0.8" fill="currentColor" stroke="none"></circle>
-          </svg>
-        `;
-      case 'threads':
-        return `
-          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-            <path d="M15.4 9.6c-.5-2.3-2.1-3.6-4.6-3.6-2.7 0-4.7 1.8-4.7 4.4 0 2.7 1.8 4.4 4.5 4.4 2.2 0 3.9-1 4.9-2.8.7.5 1 1.2 1 2.1 0 1.9-1.7 3.2-4.3 3.2-2 0-3.7-.7-5-2"></path>
-            <path d="M11.9 9.3c3 0 5.1 1.3 5.1 3.5 0 2.2-2 3.8-4.8 3.8"></path>
-          </svg>
-        `;
-      case 'facebook':
-        return `
-          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-            <path d="M13.4 20v-6.2h2.4l.4-2.8h-2.8V9.2c0-.9.3-1.5 1.5-1.5H16V5.2c-.5-.1-1.2-.2-2.2-.2-2.2 0-3.7 1.3-3.7 3.9V11H7.8v2.8h2.3V20"></path>
-          </svg>
-        `;
-      case 'youtube':
-        return `
-          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-            <rect x="4" y="6.5" width="16" height="11" rx="4"></rect>
-            <path d="m11 10 4 2-4 2z" fill="currentColor" stroke="none"></path>
-          </svg>
-        `;
-      case 'linkedin':
-        return `
-          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-            <rect x="4.5" y="4.5" width="15" height="15" rx="3"></rect>
-            <path d="M8.2 10.2v5.4"></path>
-            <path d="M8.2 8.4h0"></path>
-            <path d="M11.3 15.6v-3.2c0-1.1.7-1.9 1.8-1.9 1 0 1.6.7 1.6 1.9v3.2"></path>
-            <path d="M11.3 12.4v-2.2"></path>
-          </svg>
-        `;
-      case 'bag':
-        return `
-          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-            <path d="M7 9h10l1 10H6z"></path>
-            <path d="M9 9V7a3 3 0 0 1 6 0v2"></path>
-          </svg>
-        `;
-      case 'globe':
-      default:
-        return `
-          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-            <circle cx="12" cy="12" r="8"></circle>
-            <path d="M4 12h16"></path>
-            <path d="M12 4a12 12 0 0 1 0 16"></path>
-            <path d="M12 4a12 12 0 0 0 0 16"></path>
-          </svg>
-        `;
-    }
-  };
-
-  const listMarkup = (items) =>
-    items.map((item) => `<li>${item}</li>`).join('');
-
-  const renderFooter = () => {
-    if (!siteData) {
-      return;
-    }
-
-    const footer = document.querySelector('[data-site-footer]');
-
-    if (!(footer instanceof HTMLElement)) {
-      return;
-    }
-
-    const socialLinks = siteData.socialLinks.filter(
-      (link) => !['website', 'booking', 'shop'].includes(link.id)
-    );
-
-    footer.innerHTML = `
-      <div class="footer-inner footer-inner-rich">
-        <div class="footer-brand">
-          <p class="footer-eyebrow">${siteData.site.name}</p>
-          <h2>${siteData.site.tagline}</h2>
-          <p>${siteData.site.description}</p>
-          <a class="footer-email" href="mailto:${siteData.site.email}">${siteData.site.email}</a>
-        </div>
-
-        <div class="footer-links-grid">
-          <div class="footer-link-column">
-            <h3>Navigation</h3>
-            <div class="footer-link-list">
-              ${siteData.footerNavigation
-                .map((link) => `<a href="${link.href}">${link.label}</a>`)
-                .join('')}
-            </div>
-          </div>
-
-          <div class="footer-link-column">
-            <h3>Social</h3>
-            <div class="footer-link-list">
-              ${socialLinks
-                .map(
-                  (link) =>
-                    `<a href="${link.href}" target="_blank" rel="noreferrer">${link.label} <span class="external-link-indicator" aria-hidden="true">&#8599;</span></a>`
-                )
-                .join('')}
-            </div>
-          </div>
-
-          <div class="footer-link-column">
-            <h3>Policies</h3>
-            <div class="footer-link-list">
-              ${siteData.policyLinks
-                .map((link) => `<a href="${link.href}">${link.label}</a>`)
-                .join('')}
-            </div>
-          </div>
-        </div>
-
-        <div class="footer-base">
-          <p>&copy; <span data-year></span> 830 Productions. Cinematic work for brands that move with purpose.</p>
-        </div>
-      </div>
-    `;
-  };
-
-  const renderProcessGrids = () => {
-    if (!siteData || !Array.isArray(siteData.processSteps)) {
-      return;
-    }
-
-    document.querySelectorAll('[data-process-grid]').forEach((container) => {
-      container.innerHTML = siteData.processSteps
-        .map(
-          (step) => `
-            <article class="process-card">
-              <div class="process-step">${step.step}</div>
-              <h3>${step.title}</h3>
-              <p>${step.description}</p>
-            </article>
-          `
-        )
-        .join('');
-    });
-  };
-
-  const renderServiceGrids = () => {
-    if (!siteData || !Array.isArray(siteData.services)) {
-      return;
-    }
-
-    document.querySelectorAll('[data-services-grid]').forEach((container) => {
-      const isFull = container.getAttribute('data-services-grid') === 'full';
-
-      container.innerHTML = siteData.services
-        .map(
-          (service) => `
-            <article class="service-feature-card glass-card ${isFull ? 'service-feature-card-full' : ''}" id="service-${service.id}">
-              <div class="service-visual reveal-scale">
-                <img src="${service.visual}" alt="${service.alt}" loading="lazy" decoding="async">
-              </div>
-
-              <div class="service-copy">
-                <span class="kicker">${service.name}</span>
-                <h3>${service.summary}</h3>
-                <p>${service.description}</p>
-
-                ${
-                  isFull
-                    ? `
-                      <div class="service-columns">
-                        <div>
-                          <h4>Deliverables</h4>
-                          <ul class="service-list">
-                            ${listMarkup(service.deliverables)}
-                          </ul>
-                        </div>
-                        <div>
-                          <h4>Ideal Use Cases</h4>
-                          <ul class="service-list">
-                            ${listMarkup(service.useCases)}
-                          </ul>
-                        </div>
-                      </div>
-                    `
-                    : ''
-                }
-
-                <div class="service-card-actions">
-                  <a class="btn-secondary" href="index.html#featured-work">See Featured Work</a>
-                  <a class="btn-primary" href="book.html?service=${encodeURIComponent(service.name)}">${service.ctaLabel}</a>
-                </div>
-              </div>
-            </article>
-          `
-        )
-        .join('');
-    });
-  };
-
-  const renderPortfolioGrids = () => {
-    if (!siteData || portfolioProjects.length === 0) {
-      return;
-    }
-
-    document.querySelectorAll('[data-portfolio-grid]').forEach((container) => {
-      const mode = container.getAttribute('data-portfolio-grid');
-      const projects =
-        mode === 'featured'
-          ? siteData.homeFeaturedProjectIds
-              .map((projectId) => portfolioProjectMap.get(projectId))
-              .filter(Boolean)
-          : portfolioProjects;
-
-      container.innerHTML = projects
-        .map((project) => {
-          const categories = project.categories.map((category) => slugify(category)).join(' ');
-          const hasMotion = project.gallery.some((item) => item.type === 'video');
-
-          return `
-            <article class="portfolio-card" data-portfolio-categories="${categories}">
-              <figure class="portfolio-card-media reveal-scale">
-                <img src="${project.cover}" alt="${project.coverAlt}" loading="lazy" decoding="async">
-                ${hasMotion ? '<span class="portfolio-media-badge">Motion</span>' : ''}
-              </figure>
-
-              <div class="portfolio-card-body">
-                <div class="portfolio-meta">
-                  <span class="kicker">${project.categories[0]}</span>
-                  ${
-                    project.categories[1]
-                      ? `<span class="portfolio-meta-secondary">${project.categories[1]}</span>`
-                      : ''
-                  }
-                </div>
-                <h3>${project.title}</h3>
-                <p>${project.description}</p>
-
-                <div class="portfolio-actions">
-                  <button class="product-action portfolio-action" type="button" data-gallery-trigger="${project.id}">View Gallery</button>
-                  <a class="text-link" href="book.html?project=${encodeURIComponent(project.categories[0])}">Start Similar Project</a>
-                </div>
-              </div>
-            </article>
-          `;
-        })
-        .join('');
-    });
-  };
-
-  const renderMilestones = () => {
-    if (!siteData || !Array.isArray(siteData.milestones)) {
-      return;
-    }
-
-    document.querySelectorAll('[data-milestones]').forEach((container) => {
-      container.innerHTML = siteData.milestones
-        .map(
-          (entry) => `
-            <li>
-              <span class="timeline-year">${entry.year}</span>
-              <h3>${entry.title}</h3>
-              <p>${entry.description}</p>
-            </li>
-          `
-        )
-        .join('');
-    });
-  };
-
-  const renderTeam = () => {
-    if (!siteData) {
-      return;
-    }
-
-    document.querySelectorAll('[data-team-grid]').forEach((container) => {
-      if (Array.isArray(siteData.team) && siteData.team.length > 0) {
-        container.innerHTML = siteData.team
-          .map(
-            (member) => `
-              <article class="team-member">
-                <strong>${member.name}</strong>
-                <p>${member.position}</p>
-              </article>
-            `
-          )
-          .join('');
-        return;
-      }
-
-      container.innerHTML = `
-        <article class="empty-state-card">
-          <span class="kicker">Editable Section</span>
-          <h3>${siteData.teamPlaceholder.title}</h3>
-          <p>${siteData.teamPlaceholder.description}</p>
-        </article>
-      `;
-    });
-  };
-
-  const renderTestimonials = () => {
-    if (!siteData) {
-      return;
-    }
-
-    document.querySelectorAll('[data-testimonials]').forEach((container) => {
-      if (Array.isArray(siteData.testimonials) && siteData.testimonials.length > 0) {
-        container.innerHTML = siteData.testimonials
-          .map(
-            (item) => `
-              <article class="testimonial-card">
-                <p>"${item.quote}"</p>
-                <strong>${item.name}</strong>
-                <span>${item.project}</span>
-              </article>
-            `
-          )
-          .join('');
-        return;
-      }
-
-      container.innerHTML = `
-        <article class="empty-state-card">
-          <span class="kicker">Ready For Real Quotes</span>
-          <h3>${siteData.testimonialPlaceholder.title}</h3>
-          <p>${siteData.testimonialPlaceholder.description}</p>
-        </article>
-      `;
-    });
-  };
-
-  const renderFaqGroups = () => {
-    if (!siteData || !Array.isArray(siteData.faqGroups)) {
-      return;
-    }
-
-    document.querySelectorAll('[data-faq-groups]').forEach((container) => {
-      container.innerHTML = siteData.faqGroups
-        .map(
-          (group, groupIndex) => `
-            <section class="faq-group" id="faq-${group.id}">
-              <div class="faq-group-heading">
-                <p class="section-kicker">${group.title}</p>
-              </div>
-              <div class="faq-list">
-                ${group.items
-                  .map(
-                    (item, itemIndex) => `
-                      <details class="faq-item" ${groupIndex === 0 && itemIndex === 0 ? 'open' : ''}>
-                        <summary>${item.question}</summary>
-                        <p>${item.answer}</p>
-                      </details>
-                    `
-                  )
-                  .join('')}
-              </div>
-            </section>
-          `
-        )
-        .join('');
-    });
-  };
-
-  const renderProductsGrid = () => {
-    if (!siteData || !Array.isArray(siteData.products)) {
-      return;
-    }
-
-    document.querySelectorAll('[data-products-grid]').forEach((container) => {
-      container.innerHTML = siteData.products
-        .map(
-          (product) => `
-            <article class="product-card tilt-card" data-category="${product.category}">
-              <div class="product-meta">
-                <span class="product-tag">${product.tag}</span>
-                <span class="product-price">${product.price}</span>
-              </div>
-              <h3>${product.title}</h3>
-              <p>${product.description}</p>
-              <ul class="product-detail-list">
-                ${listMarkup(product.details)}
-              </ul>
-              <button class="product-action" type="button" data-stripe-link-id="${product.id}">Buy With Stripe</button>
-            </article>
-          `
-        )
-        .join('');
-    });
-  };
-
-  const renderLinksGrid = () => {
-    if (!siteData || !Array.isArray(siteData.socialLinks)) {
-      return;
-    }
-
-    document.querySelectorAll('[data-links-grid]').forEach((container) => {
-      container.innerHTML = siteData.socialLinks
-        .map((link) => {
-          const labelPrefix =
-            link.label === 'Website'
-              ? 'Visit the 830 Productions website'
-              : link.label === 'Booking'
-                ? 'Book 830 Productions'
-                : `Open 830 Productions on ${link.label}`;
-
-          return `
-            <a class="link-card ${link.featured ? 'link-card-featured' : ''}" href="${link.href}" target="_blank" rel="noreferrer" aria-label="${labelPrefix}">
-              <div class="link-card-top">
-                <span class="link-icon" aria-hidden="true">
-                  ${iconMarkup(link.icon)}
-                </span>
-                <span class="platform-pill">${link.label}</span>
-              </div>
-
-              <div class="link-card-copy">
-                <strong>${link.handle}</strong>
-                <p>${link.description}</p>
-              </div>
-
-              <span class="link-arrow" aria-hidden="true">&#8599;</span>
-            </a>
-          `;
-        })
-        .join('');
-    });
-  };
-
-  renderFooter();
-  renderProcessGrids();
-  renderServiceGrids();
-  renderPortfolioGrids();
-  renderMilestones();
-  renderTeam();
-  renderTestimonials();
-  renderFaqGroups();
-  renderProductsGrid();
-  renderLinksGrid();
 
   const header = document.querySelector('.site-header');
   const applyHeaderState = () => {
@@ -510,84 +8,102 @@
     }
 
     header.classList.toggle('is-scrolled', window.scrollY > 16);
+    document.documentElement.style.setProperty('--header-h', `${header.getBoundingClientRect().height}px`);
   };
 
   applyHeaderState();
   window.addEventListener('scroll', applyHeaderState, { passive: true });
-
-  const hero = document.querySelector('.hero-home');
-  const heroVideo = document.querySelector('[data-hero-video]');
-
-  if (hero instanceof HTMLElement && heroVideo instanceof HTMLVideoElement && !reduceMotion.matches) {
-    let heroTicking = false;
-
-    const updateHeroParallax = () => {
-      const rect = hero.getBoundingClientRect();
-      const offset = Math.max(Math.min(rect.top * -0.08, 28), -12);
-
-      hero.style.setProperty('--hero-parallax', `${offset.toFixed(2)}px`);
-      heroTicking = false;
-    };
-
-    const requestHeroParallax = () => {
-      if (heroTicking) {
-        return;
-      }
-
-      heroTicking = true;
-      window.requestAnimationFrame(updateHeroParallax);
-    };
-
-    updateHeroParallax();
-    window.addEventListener('scroll', requestHeroParallax, { passive: true });
-    window.addEventListener('resize', requestHeroParallax);
-  }
+  window.addEventListener('resize', applyHeaderState);
 
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.site-nav');
 
-  if (menuToggle instanceof HTMLButtonElement && nav instanceof HTMLElement) {
-    const closeNav = () => {
-      nav.classList.remove('is-open');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('nav-open');
+  if (menuToggle && nav) {
+    const setMenu = (isOpen) => {
+      nav.classList.toggle('is-open', isOpen);
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     };
 
     menuToggle.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('is-open');
-
-      menuToggle.setAttribute('aria-expanded', String(isOpen));
-      document.body.classList.toggle('nav-open', isOpen);
+      applyHeaderState();
+      setMenu(!nav.classList.contains('is-open'));
     });
 
     nav.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', closeNav);
-    });
-
-    document.addEventListener('click', (event) => {
-      const target = event.target;
-
-      if (!(target instanceof Element)) {
-        return;
-      }
-
-      if (!nav.contains(target) && !menuToggle.contains(target)) {
-        closeNav();
-      }
+      link.addEventListener('click', () => setMenu(false));
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        closeNav();
+      if (event.key === 'Escape' && nav.classList.contains('is-open')) {
+        setMenu(false);
+        menuToggle.focus();
       }
     });
 
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 840) {
-        closeNav();
+      if (window.innerWidth > 1024 && nav.classList.contains('is-open')) {
+        setMenu(false);
       }
     });
   }
+
+  if (reduceMotion.matches) {
+    document.querySelectorAll('[data-hero-video], [data-autoplay]').forEach((video) => {
+      if (video instanceof HTMLVideoElement) {
+        video.removeAttribute('autoplay');
+        video.pause();
+      }
+    });
+  }
+
+  // Hero film: stop on the closing logo instead of fading to black.
+  document.querySelectorAll('video[data-hold-at]').forEach((video) => {
+    if (!(video instanceof HTMLVideoElement)) {
+      return;
+    }
+
+    const holdAt = Number(video.getAttribute('data-hold-at'));
+
+    const hold = () => {
+      video.pause();
+      video.currentTime = holdAt;
+    };
+
+    video.addEventListener('timeupdate', () => {
+      if (!video.paused && video.currentTime >= holdAt) {
+        hold();
+      }
+    });
+
+    video.addEventListener('ended', hold);
+
+    // Pressing play again after the hold starts the film over.
+    video.addEventListener('play', () => {
+      if (video.currentTime >= holdAt) {
+        video.currentTime = 0;
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-sound-toggle]').forEach((button) => {
+    const video = button.closest('.story-frame, .film-card, .hero-cinema')?.querySelector('video');
+
+    if (!(button instanceof HTMLButtonElement) || !(video instanceof HTMLVideoElement)) {
+      return;
+    }
+
+    button.addEventListener('click', () => {
+      video.muted = !video.muted;
+
+      if (!video.muted && video.paused) {
+        video.play().catch(() => {});
+      }
+
+      button.setAttribute('aria-pressed', String(!video.muted));
+      button.textContent = video.muted ? 'Sound on' : 'Sound off';
+    });
+  });
 
   const printLegalButton = document.querySelector('[data-print-legal]');
 
@@ -597,202 +113,273 @@
     });
   }
 
-  const lightbox = document.querySelector('[data-lightbox]');
-  const lightboxClose = document.querySelector('[data-lightbox-close]');
-  const lightboxPrev = document.querySelector('[data-lightbox-prev]');
-  const lightboxNext = document.querySelector('[data-lightbox-next]');
-  const lightboxMedia = document.querySelector('[data-lightbox-media]');
-  const lightboxTitle = document.querySelector('[data-lightbox-title]');
-  const lightboxCategory = document.querySelector('[data-lightbox-category]');
-  const lightboxCount = document.querySelector('[data-lightbox-count]');
-  const lightboxDescription = document.querySelector('[data-lightbox-description]');
-  const lightboxThumbs = document.querySelector('[data-lightbox-thumbs]');
-  const galleryTriggers = document.querySelectorAll('[data-gallery-trigger]');
+  /* ---------- Albums ---------- */
 
-  if (
-    lightbox instanceof HTMLElement &&
-    lightboxClose instanceof HTMLButtonElement &&
-    lightboxPrev instanceof HTMLButtonElement &&
-    lightboxNext instanceof HTMLButtonElement &&
-    lightboxMedia instanceof HTMLElement &&
-    lightboxTitle instanceof HTMLElement &&
-    lightboxCategory instanceof HTMLElement &&
-    lightboxCount instanceof HTMLElement &&
-    lightboxDescription instanceof HTMLElement &&
-    lightboxThumbs instanceof HTMLElement &&
-    galleryTriggers.length > 0
-  ) {
-    const lightboxState = {
-      project: null,
-      items: [],
-      index: 0,
-      lastTrigger: null
-    };
+  const albums = Array.isArray(window.ALBUMS_830) ? window.ALBUMS_830 : [];
+  const albumContainers = document.querySelectorAll('[data-albums]');
 
-    const setLightboxOpen = (isOpen) => {
-      lightbox.classList.toggle('is-open', isOpen);
-      lightbox.setAttribute('aria-hidden', String(!isOpen));
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    };
+  const escapeHtml = (value) =>
+    String(value || '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 
-    const renderLightbox = () => {
-      const project = lightboxState.project;
-      const item = lightboxState.items[lightboxState.index];
+  const categoryLabels = {
+    seniors: 'Seniors',
+    portraits: 'Portraits',
+    events: 'Events',
+    places: 'Places',
+    details: 'Details'
+  };
 
-      if (!project || !item) {
-        return;
-      }
+  const buildAlbumCard = (album) => {
+    const photos = Array.isArray(album.photos) ? album.photos : [];
+    const label = categoryLabels[album.category] || 'Album';
+    const titleBar = `
+      <div class="title-bar">
+        <div>
+          <span class="label">${escapeHtml(label)}</span>
+          <strong>${escapeHtml(album.title)}</strong>
+          ${album.subtitle ? `<p>${escapeHtml(album.subtitle)}</p>` : ''}
+        </div>
+        <img src="images/brand/reel-white.svg" alt="" width="32" height="32">
+      </div>`;
 
-      lightboxMedia.innerHTML = '';
+    if (photos.length === 0) {
+      return `
+        <div class="album-card is-empty" data-category="${escapeHtml(album.category)}">
+          <div class="album-cover album-cover--empty">
+            <div class="album-placeholder">
+              <span class="label">In the edit</span>
+              <strong>Photos coming soon</strong>
+            </div>
+          </div>
+          ${titleBar}
+        </div>`;
+    }
 
-      if (item.type === 'video') {
-        const video = document.createElement('video');
+    const cover = album.cover || photos[0].thumb || photos[0].src;
+    const count = `${photos.length} ${photos.length === 1 ? 'photo' : 'photos'}`;
 
-        video.controls = true;
-        video.autoplay = !reduceMotion.matches;
-        video.playsInline = true;
-        video.preload = 'metadata';
-        video.poster = item.poster || '';
-        video.setAttribute('aria-label', item.alt || project.title);
-        video.innerHTML = `<source src="${item.src}" type="video/mp4">`;
-        lightboxMedia.appendChild(video);
-      } else {
-        const image = document.createElement('img');
+    return `
+      <button class="album-card" type="button" data-album-id="${escapeHtml(album.id)}" data-category="${escapeHtml(album.category)}" aria-label="Open album: ${escapeHtml(album.title)}, ${count}">
+        <div class="album-cover">
+          <img src="${escapeHtml(cover)}" alt="" loading="lazy" decoding="async">
+          <span class="album-count">${count}</span>
+        </div>
+        ${titleBar}
+      </button>`;
+  };
 
-        image.src = item.src;
-        image.alt = item.alt || project.title;
-        image.decoding = 'async';
-        image.loading = 'eager';
-        lightboxMedia.appendChild(image);
-      }
+  const hasPhotos = (album) => Array.isArray(album.photos) && album.photos.length > 0;
 
-      lightboxTitle.textContent = project.title;
-      lightboxCategory.textContent = project.categories.join(' / ');
-      lightboxCount.textContent = `${lightboxState.index + 1} / ${lightboxState.items.length}`;
-      lightboxDescription.textContent = project.description;
-      lightboxPrev.disabled = lightboxState.items.length <= 1;
-      lightboxNext.disabled = lightboxState.items.length <= 1;
+  albumContainers.forEach((container) => {
+    const limit = Number(container.getAttribute('data-limit')) || albums.length;
+    // "featured" lists finished albums before empty ones.
+    const list = container.getAttribute('data-albums') === 'featured'
+      ? [...albums.filter(hasPhotos), ...albums.filter((album) => !hasPhotos(album))]
+      : albums;
+    container.innerHTML = list.slice(0, limit).map(buildAlbumCard).join('');
+  });
 
-      lightboxThumbs.innerHTML = lightboxState.items
-        .map((thumb, index) => {
-          const label = thumb.type === 'video' ? 'Video' : `Frame ${index + 1}`;
-          const activeClass = index === lightboxState.index ? 'is-active' : '';
-          const thumbMedia =
-            thumb.type === 'video'
-              ? `<span class="lightbox-thumb-label">Video</span>`
-              : `<img src="${thumb.src}" alt="${thumb.alt || project.title}" loading="lazy" decoding="async">`;
+  const albumFilters = document.querySelectorAll('[data-album-filter]');
 
-          return `
-            <button class="lightbox-thumb ${activeClass}" type="button" data-lightbox-thumb="${index}" aria-label="View ${label}">
-              ${thumbMedia}
-            </button>
-          `;
-        })
-        .join('');
-    };
+  albumFilters.forEach((button) => {
+    button.addEventListener('click', () => {
+      const filter = button.getAttribute('data-album-filter');
 
-    const openLightbox = (projectId, trigger) => {
-      const project = portfolioProjectMap.get(projectId);
+      albumFilters.forEach((item) => {
+        item.classList.toggle('active', item === button);
+        item.setAttribute('aria-pressed', String(item === button));
+      });
 
-      if (!project || !Array.isArray(project.gallery) || project.gallery.length === 0) {
-        return;
-      }
-
-      lightboxState.project = project;
-      lightboxState.items = project.gallery;
-      lightboxState.index = 0;
-      lightboxState.lastTrigger = trigger;
-      renderLightbox();
-      setLightboxOpen(true);
-      lightboxClose.focus();
-    };
-
-    const closeLightbox = () => {
-      setLightboxOpen(false);
-      lightboxMedia.innerHTML = '';
-
-      if (lightboxState.lastTrigger instanceof HTMLElement) {
-        lightboxState.lastTrigger.focus();
-      }
-    };
-
-    const stepLightbox = (direction) => {
-      if (lightboxState.items.length <= 1) {
-        return;
-      }
-
-      lightboxState.index =
-        (lightboxState.index + direction + lightboxState.items.length) % lightboxState.items.length;
-      renderLightbox();
-    };
-
-    galleryTriggers.forEach((trigger) => {
-      trigger.addEventListener('click', () => {
-        const projectId = trigger.getAttribute('data-gallery-trigger') || '';
-
-        if (!projectId) {
-          return;
-        }
-
-        openLightbox(projectId, trigger);
+      document.querySelectorAll('[data-albums] .album-card').forEach((card) => {
+        const show = filter === 'all' || card.getAttribute('data-category') === filter;
+        card.hidden = !show;
       });
     });
+  });
 
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightboxPrev.addEventListener('click', () => stepLightbox(-1));
-    lightboxNext.addEventListener('click', () => stepLightbox(1));
+  if (albums.length > 0 && albumContainers.length > 0) {
+    const viewer = document.createElement('div');
+    viewer.className = 'viewer';
+    viewer.setAttribute('role', 'dialog');
+    viewer.setAttribute('aria-modal', 'true');
+    viewer.setAttribute('aria-labelledby', 'viewer-title');
+    viewer.setAttribute('aria-hidden', 'true');
+    viewer.innerHTML = `
+      <div class="viewer-top">
+        <div>
+          <span class="label" data-viewer-label></span>
+          <h2 id="viewer-title" data-viewer-title></h2>
+        </div>
+        <div class="viewer-meta">
+          <span class="viewer-count" data-viewer-count></span>
+          <button class="viewer-close" type="button" data-viewer-close>Close</button>
+        </div>
+      </div>
+      <div class="viewer-stage">
+        <button class="viewer-nav viewer-prev" type="button" aria-label="Previous photo" data-viewer-prev>&larr;</button>
+        <figure>
+          <img src="" alt="" data-viewer-image>
+          <figcaption data-viewer-caption></figcaption>
+        </figure>
+        <button class="viewer-nav viewer-next" type="button" aria-label="Next photo" data-viewer-next>&rarr;</button>
+      </div>
+      <div class="viewer-thumbs" data-viewer-thumbs></div>`;
+    document.body.appendChild(viewer);
 
-    lightboxThumbs.addEventListener('click', (event) => {
-      const target = event.target;
+    const viewerImage = viewer.querySelector('[data-viewer-image]');
+    const viewerCaption = viewer.querySelector('[data-viewer-caption]');
+    const viewerTitle = viewer.querySelector('[data-viewer-title]');
+    const viewerLabel = viewer.querySelector('[data-viewer-label]');
+    const viewerCount = viewer.querySelector('[data-viewer-count]');
+    const viewerThumbs = viewer.querySelector('[data-viewer-thumbs]');
+    const viewerClose = viewer.querySelector('[data-viewer-close]');
+    const viewerPrev = viewer.querySelector('[data-viewer-prev]');
+    const viewerNext = viewer.querySelector('[data-viewer-next]');
 
-      if (!(target instanceof Element)) {
+    let activeAlbum = null;
+    let activeIndex = 0;
+    let returnFocus = null;
+
+    const showPhoto = (index) => {
+      if (!activeAlbum) {
         return;
       }
 
-      const button = target.closest('[data-lightbox-thumb]');
+      const photos = activeAlbum.photos;
+      activeIndex = (index + photos.length) % photos.length;
+      const photo = photos[activeIndex];
 
-      if (!(button instanceof HTMLButtonElement)) {
+      viewerImage.classList.add('is-loading');
+      viewerImage.onload = () => viewerImage.classList.remove('is-loading');
+      viewerImage.src = photo.src;
+      viewerImage.alt = photo.alt || activeAlbum.title;
+      viewerCaption.textContent = photo.caption || '';
+      viewerCount.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(photos.length).padStart(2, '0')}`;
+
+      viewerThumbs.querySelectorAll('button').forEach((thumb, thumbIndex) => {
+        const isCurrent = thumbIndex === activeIndex;
+        thumb.setAttribute('aria-current', String(isCurrent));
+
+        if (isCurrent) {
+          thumb.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+        }
+      });
+
+      const next = photos[(activeIndex + 1) % photos.length];
+
+      if (next) {
+        const preload = new Image();
+        preload.src = next.src;
+      }
+    };
+
+    const openAlbum = (albumId, trigger) => {
+      const album = albums.find((item) => item.id === albumId);
+
+      if (!album || !Array.isArray(album.photos) || album.photos.length === 0) {
         return;
       }
 
-      const nextIndex = Number(button.getAttribute('data-lightbox-thumb'));
+      activeAlbum = album;
+      returnFocus = trigger || null;
+      viewerTitle.textContent = album.title;
+      viewerLabel.textContent = categoryLabels[album.category] || 'Album';
+      viewerThumbs.innerHTML = album.photos
+        .map(
+          (photo, index) =>
+            `<button type="button" data-thumb-index="${index}" aria-label="Show photo ${index + 1}"><img src="${escapeHtml(photo.thumb || photo.src)}" alt="" loading="lazy"></button>`
+        )
+        .join('');
+      const single = album.photos.length < 2;
+      viewerPrev.hidden = single;
+      viewerNext.hidden = single;
+      viewerThumbs.hidden = single;
 
-      if (Number.isNaN(nextIndex)) {
-        return;
+      viewer.classList.add('is-open');
+      viewer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      showPhoto(0);
+      viewerClose.focus();
+    };
+
+    const closeViewer = () => {
+      viewer.classList.remove('is-open');
+      viewer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      activeAlbum = null;
+
+      if (returnFocus instanceof HTMLElement) {
+        returnFocus.focus();
       }
+    };
 
-      lightboxState.index = nextIndex;
-      renderLightbox();
+    document.addEventListener('click', (event) => {
+      const target = event.target instanceof Element ? event.target.closest('[data-album-id]') : null;
+
+      if (target) {
+        openAlbum(target.getAttribute('data-album-id'), target);
+      }
     });
 
-    lightbox.addEventListener('click', (event) => {
-      if (event.target === lightbox) {
-        closeLightbox();
+    viewerThumbs.addEventListener('click', (event) => {
+      const thumb = event.target instanceof Element ? event.target.closest('[data-thumb-index]') : null;
+
+      if (thumb) {
+        showPhoto(Number(thumb.getAttribute('data-thumb-index')));
       }
     });
+
+    viewerClose.addEventListener('click', closeViewer);
+    viewerPrev.addEventListener('click', () => showPhoto(activeIndex - 1));
+    viewerNext.addEventListener('click', () => showPhoto(activeIndex + 1));
 
     document.addEventListener('keydown', (event) => {
-      if (!lightbox.classList.contains('is-open')) {
+      if (!activeAlbum) {
         return;
       }
 
       if (event.key === 'Escape') {
-        closeLightbox();
-      }
+        closeViewer();
+      } else if (event.key === 'ArrowRight') {
+        showPhoto(activeIndex + 1);
+      } else if (event.key === 'ArrowLeft') {
+        showPhoto(activeIndex - 1);
+      } else if (event.key === 'Tab') {
+        const focusable = Array.from(viewer.querySelectorAll('button:not([hidden])'));
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
 
-      if (event.key === 'ArrowLeft') {
-        stepLightbox(-1);
-      }
-
-      if (event.key === 'ArrowRight') {
-        stepLightbox(1);
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     });
+
+    let touchStartX = 0;
+    const stage = viewer.querySelector('.viewer-stage');
+
+    stage.addEventListener('touchstart', (event) => {
+      touchStartX = event.changedTouches[0].clientX;
+    }, { passive: true });
+
+    stage.addEventListener('touchend', (event) => {
+      const deltaX = event.changedTouches[0].clientX - touchStartX;
+
+      if (Math.abs(deltaX) > 48) {
+        showPhoto(activeIndex + (deltaX < 0 ? 1 : -1));
+      }
+    }, { passive: true });
   }
 
-  const revealNodes = document.querySelectorAll('.reveal, .reveal-scale');
+  /* ---------- Reveal on scroll ---------- */
 
-  if ('IntersectionObserver' in window && revealNodes.length > 0) {
+  const revealNodes = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window && revealNodes.length > 0 && !reduceMotion.matches) {
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
@@ -805,8 +392,8 @@
         });
       },
       {
-        threshold: 0.14,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
       }
     );
 
@@ -815,64 +402,7 @@
     revealNodes.forEach((node) => node.classList.add('visible'));
   }
 
-  const tiltCards = document.querySelectorAll('.tilt-card');
-
-  tiltCards.forEach((card) => {
-    card.addEventListener('pointermove', (event) => {
-      if (window.innerWidth < 900 || reduceMotion.matches) {
-        return;
-      }
-
-      const rect = card.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * -5;
-      const rotateY = ((x - centerX) / centerX) * 5;
-
-      card.style.transform = `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
-    });
-
-    card.addEventListener('pointerleave', () => {
-      card.style.transform = '';
-    });
-  });
-
-  const glow = document.querySelector('.cursor-glow');
-
-  if (glow instanceof HTMLElement) {
-    if (window.matchMedia('(pointer: fine)').matches) {
-      document.body.classList.add('cursor-ready');
-    }
-
-    window.addEventListener(
-      'pointermove',
-      (event) => {
-        glow.style.left = `${event.clientX}px`;
-        glow.style.top = `${event.clientY}px`;
-      },
-      { passive: true }
-    );
-
-    document.querySelectorAll('a, button, input, select, textarea, summary').forEach((node) => {
-      node.addEventListener('pointerenter', () => {
-        document.body.classList.add('cursor-active');
-      });
-
-      node.addEventListener('pointerleave', () => {
-        document.body.classList.remove('cursor-active');
-      });
-
-      node.addEventListener('focus', () => {
-        document.body.classList.add('cursor-active');
-      });
-
-      node.addEventListener('blur', () => {
-        document.body.classList.remove('cursor-active');
-      });
-    });
-  }
+  /* ---------- Newsletter (Mailchimp JSONP) ---------- */
 
   const newsletterForm = document.querySelector('.newsletter-form');
 
@@ -897,8 +427,7 @@
 
       if (newsletterButton instanceof HTMLButtonElement) {
         newsletterButton.disabled = state === 'loading';
-        newsletterButton.textContent =
-          state === 'loading' ? 'Sending...' : state === 'success' ? 'Subscribed' : 'Subscribe';
+        newsletterButton.textContent = state === 'loading' ? 'Sending...' : state === 'success' ? 'Subscribed' : 'Subscribe';
       }
     };
 
@@ -926,7 +455,7 @@
       event.preventDefault();
 
       if (!newsletterForm.reportValidity()) {
-        setNewsletterState('error', 'Drop in a valid email first.');
+        setNewsletterState('error', 'Add a valid email first.');
         return;
       }
 
@@ -962,12 +491,8 @@
           return;
         }
 
-        const fallbackMessage =
-          'Mailchimp could not confirm that signup. Try again in a moment.';
-        const responseMessage =
-          response && typeof response.msg === 'string'
-            ? response.msg.replace(/<[^>]*>/g, '')
-            : '';
+        const fallbackMessage = 'Mailchimp could not confirm that signup. Try again in a moment.';
+        const responseMessage = response && typeof response.msg === 'string' ? response.msg.replace(/<[^>]*>/g, '') : '';
 
         if (/already subscribed/i.test(responseMessage)) {
           setNewsletterState('success', 'Confirmed. You are already on the list.');
@@ -998,6 +523,8 @@
     node.textContent = String(new Date().getFullYear());
   });
 
+  /* ---------- Shop ---------- */
+
   const filterButtons = document.querySelectorAll('[data-filter]');
   const productCards = document.querySelectorAll('.product-card[data-category]');
 
@@ -1007,11 +534,9 @@
         const filter = button.getAttribute('data-filter');
 
         filterButtons.forEach((item) => {
-          item.classList.remove('active');
-          item.setAttribute('aria-pressed', 'false');
+          item.classList.toggle('active', item === button);
+          item.setAttribute('aria-pressed', String(item === button));
         });
-        button.classList.add('active');
-        button.setAttribute('aria-pressed', 'true');
 
         productCards.forEach((card) => {
           const category = card.getAttribute('data-category');
@@ -1021,57 +546,6 @@
         });
       });
     });
-  }
-
-  const portfolioFilterButtons = document.querySelectorAll('[data-portfolio-filter]');
-  const portfolioCards = document.querySelectorAll('.portfolio-card[data-portfolio-categories]');
-  const portfolioEmptyState = document.querySelector('[data-portfolio-empty]');
-
-  if (portfolioFilterButtons.length > 0 && portfolioCards.length > 0) {
-    const setPortfolioFilter = (filter) => {
-      let visibleCount = 0;
-
-      portfolioCards.forEach((card) => {
-        const categories = (card.getAttribute('data-portfolio-categories') || '').split(/\s+/);
-        const shouldShow = filter === 'all' || categories.includes(filter);
-
-        card.classList.toggle('is-hidden', !shouldShow);
-
-        if (shouldShow) {
-          visibleCount += 1;
-        }
-      });
-
-      if (portfolioEmptyState instanceof HTMLElement) {
-        portfolioEmptyState.hidden = visibleCount > 0;
-      }
-    };
-
-    portfolioFilterButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const filter = button.getAttribute('data-portfolio-filter') || 'all';
-
-        portfolioFilterButtons.forEach((item) => {
-          item.classList.remove('active');
-          item.setAttribute('aria-pressed', 'false');
-        });
-
-        button.classList.add('active');
-        button.setAttribute('aria-pressed', 'true');
-        setPortfolioFilter(filter);
-      });
-    });
-
-    const requestedCategory = slugify(pageQuery.get('category') || '');
-    const requestedButton = Array.from(portfolioFilterButtons).find(
-      (button) => button.getAttribute('data-portfolio-filter') === requestedCategory
-    );
-
-    if (requestedButton instanceof HTMLButtonElement) {
-      requestedButton.click();
-    } else {
-      setPortfolioFilter('all');
-    }
   }
 
   const stripeButtons = document.querySelectorAll('[data-stripe-link-id]');
@@ -1107,8 +581,7 @@
 
     stripeButtons.forEach((button) => {
       const productId = button.getAttribute('data-stripe-link-id') || '';
-      const checkoutUrl =
-        productId && typeof productLinks[productId] === 'string' ? productLinks[productId].trim() : '';
+      const checkoutUrl = productId && typeof productLinks[productId] === 'string' ? productLinks[productId].trim() : '';
 
       if (!checkoutUrl || !checkoutUrl.startsWith('https://')) {
         button.classList.add('is-disabled');
@@ -1135,188 +608,90 @@
     }
   }
 
+  /* ---------- Booking ---------- */
+
   const bookingForm = document.querySelector('.booking-form');
 
   if (bookingForm instanceof HTMLFormElement) {
     const summaryNodes = {
       name: document.querySelector('[data-summary="name"]'),
-      company: document.querySelector('[data-summary="company"]'),
-      project: document.querySelector('[data-summary="project"]'),
-      services: document.querySelector('[data-summary="services"]'),
+      package: document.querySelector('[data-summary="package"]'),
       date: document.querySelector('[data-summary="date"]'),
       location: document.querySelector('[data-summary="location"]'),
-      budget: document.querySelector('[data-summary="budget"]'),
       slot: document.querySelector('[data-summary="slot"]')
     };
+
     const slotInput = bookingForm.querySelector('#selected-slot');
+    const packageOptions = bookingForm.querySelectorAll('.package-option');
     const slotButtons = bookingForm.querySelectorAll('[data-slot]');
-    const serviceInputs = bookingForm.querySelectorAll('input[name="services"]');
-    const serviceOptions = bookingForm.querySelectorAll('.check-option');
-    const statusMessage = bookingForm.querySelector('[data-booking-status]');
-    const submitButton = bookingForm.querySelector('[data-booking-submit]');
-    let isSubmitting = false;
+    const successMessage = bookingForm.querySelector('.notice-success');
 
     const readField = (selector) => {
       const field = bookingForm.querySelector(selector);
 
-      if (
-        !(field instanceof HTMLInputElement) &&
-        !(field instanceof HTMLTextAreaElement) &&
-        !(field instanceof HTMLSelectElement)
-      ) {
+      if (!(field instanceof HTMLInputElement) && !(field instanceof HTMLTextAreaElement) && !(field instanceof HTMLSelectElement)) {
         return '';
       }
 
       return field.value.trim();
     };
 
-    const setBookingStatus = (state, message) => {
-      if (!(statusMessage instanceof HTMLElement)) {
-        return;
-      }
-
-      if (!message) {
-        statusMessage.textContent = '';
-        statusMessage.hidden = true;
-        statusMessage.removeAttribute('data-state');
-        return;
-      }
-
-      statusMessage.hidden = false;
-      statusMessage.textContent = message;
-      statusMessage.setAttribute('data-state', state);
-    };
-
-    const getSelectedServices = () =>
-      Array.from(serviceInputs)
-        .filter((input) => input instanceof HTMLInputElement && input.checked)
-        .map((input) => input.value);
-
-    const syncServiceStates = () => {
-      serviceOptions.forEach((option) => {
-        const input = option.querySelector('input[type="checkbox"]');
-
-        if (!(input instanceof HTMLInputElement)) {
-          return;
-        }
-
-        option.classList.toggle('is-selected', input.checked);
-      });
-    };
-
     const updateSummary = () => {
-      const selectedServices = getSelectedServices();
+      const selectedPackage = bookingForm.querySelector('input[name="package"]:checked');
+      const packageLabel =
+        selectedPackage instanceof HTMLInputElement ? selectedPackage.getAttribute('data-package-label') || selectedPackage.value : 'Not selected';
       const selectedDate = readField('#event-date');
-      const selectedSlot =
-        slotInput instanceof HTMLInputElement && slotInput.value ? slotInput.value : 'Pick a time';
+      const selectedSlot = slotInput instanceof HTMLInputElement && slotInput.value ? slotInput.value : 'Pick a time';
 
-      if (summaryNodes.name instanceof HTMLElement) {
+      if (summaryNodes.name) {
         summaryNodes.name.textContent = readField('#client-name') || 'Your name';
       }
 
-      if (summaryNodes.company instanceof HTMLElement) {
-        summaryNodes.company.textContent = readField('#company') || 'Company or brand';
+      if (summaryNodes.package) {
+        summaryNodes.package.textContent = packageLabel;
       }
 
-      if (summaryNodes.project instanceof HTMLElement) {
-        summaryNodes.project.textContent = readField('#project-type') || 'Select a project type';
-      }
-
-      if (summaryNodes.services instanceof HTMLElement) {
-        summaryNodes.services.textContent =
-          selectedServices.length > 0 ? selectedServices.join(', ') : 'Choose at least one';
-      }
-
-      if (summaryNodes.date instanceof HTMLElement) {
+      if (summaryNodes.date) {
         summaryNodes.date.textContent = selectedDate || 'Select a date';
       }
 
-      if (summaryNodes.location instanceof HTMLElement) {
+      if (summaryNodes.location) {
         summaryNodes.location.textContent = readField('#location') || 'Project location';
       }
 
-      if (summaryNodes.budget instanceof HTMLElement) {
-        summaryNodes.budget.textContent = readField('#budget') || 'Budget range';
-      }
-
-      if (summaryNodes.slot instanceof HTMLElement) {
+      if (summaryNodes.slot) {
         summaryNodes.slot.textContent = selectedSlot;
       }
     };
 
-    const prefillBookingForm = () => {
-      const requestedService = (pageQuery.get('service') || '').toLowerCase();
-      const requestedProject = (pageQuery.get('project') || '').toLowerCase();
-      const projectTypeSelect = bookingForm.querySelector('#project-type');
+    packageOptions.forEach((option) => {
+      const input = option.querySelector('input[type="radio"]');
 
-      if (requestedService) {
-        serviceInputs.forEach((input) => {
-          if (!(input instanceof HTMLInputElement)) {
-            return;
-          }
-
-          if (input.value.toLowerCase() === requestedService) {
-            input.checked = true;
-          }
-        });
+      if (!(input instanceof HTMLInputElement)) {
+        return;
       }
 
-      if (requestedProject && projectTypeSelect instanceof HTMLSelectElement) {
-        const matchingOption = Array.from(projectTypeSelect.options).find(
-          (option) => option.value.toLowerCase() === requestedProject
-        );
+      const syncSelection = () => {
+        option.classList.toggle('is-selected', input.checked);
+      };
 
-        if (matchingOption) {
-          projectTypeSelect.value = matchingOption.value;
-        }
-      }
-    };
+      input.addEventListener('change', () => {
+        packageOptions.forEach((item) => item.classList.remove('is-selected'));
+        syncSelection();
+        updateSummary();
+      });
 
-    const validateBookingForm = () => {
-      if (!bookingForm.reportValidity()) {
-        setBookingStatus('error', 'Check the required fields and try again.');
-        return false;
-      }
-
-      const selectedServices = getSelectedServices();
-
-      if (selectedServices.length === 0) {
-        setBookingStatus('error', 'Choose at least one service before submitting.');
-
-        if (serviceInputs[0] instanceof HTMLInputElement) {
-          serviceInputs[0].focus();
-        }
-        return false;
-      }
-
-      const selectedDate = readField('#event-date');
-
-      if (selectedDate) {
-        const today = new Date();
-        const comparisonDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        const requestedDate = new Date(`${selectedDate}T00:00:00`);
-
-        if (requestedDate < comparisonDate) {
-          setBookingStatus('error', 'Choose a project date that is today or later.');
-          const dateField = bookingForm.querySelector('#event-date');
-
-          if (dateField instanceof HTMLInputElement) {
-            dateField.focus();
-          }
-          return false;
-        }
-      }
-
-      setBookingStatus('', '');
-      return true;
-    };
+      syncSelection();
+    });
 
     slotButtons.forEach((button) => {
       button.addEventListener('click', () => {
         const slot = button.getAttribute('data-slot') || '';
 
-        slotButtons.forEach((item) => item.classList.remove('is-active'));
-        button.classList.add('is-active');
+        slotButtons.forEach((item) => {
+          item.classList.toggle('is-active', item === button);
+          item.setAttribute('aria-pressed', String(item === button));
+        });
 
         if (slotInput instanceof HTMLInputElement) {
           slotInput.value = slot;
@@ -1326,45 +701,55 @@
       });
     });
 
-    serviceInputs.forEach((input) => {
-      input.addEventListener('change', () => {
-        syncServiceStates();
-        updateSummary();
-      });
-    });
-
     bookingForm.querySelectorAll('input, select, textarea').forEach((field) => {
       field.addEventListener('input', updateSummary);
       field.addEventListener('change', updateSummary);
     });
 
-    prefillBookingForm();
-    syncServiceStates();
-    updateSummary();
+    const servicesHint = bookingForm.querySelector('#services-hint');
+    const serviceBoxes = bookingForm.querySelectorAll('input[name="services"]');
+
+    serviceBoxes.forEach((box) => {
+      box.addEventListener('change', () => {
+        if (servicesHint) {
+          servicesHint.classList.remove('is-error');
+          servicesHint.textContent = 'Choose at least one.';
+        }
+      });
+    });
 
     bookingForm.addEventListener('submit', (event) => {
       event.preventDefault();
 
-      if (isSubmitting) {
+      const services = [...serviceBoxes]
+        .filter((box) => box instanceof HTMLInputElement && box.checked)
+        .map((box) => box.value);
+
+      if (serviceBoxes.length > 0 && services.length === 0) {
+        if (servicesHint) {
+          servicesHint.classList.add('is-error');
+          servicesHint.textContent = 'Choose at least one service before sending.';
+        }
+        const firstBox = serviceBoxes[0];
+        if (firstBox instanceof HTMLInputElement) {
+          firstBox.focus();
+        }
         return;
       }
 
-      if (!validateBookingForm()) {
-        return;
-      }
-
-      const selectedServices = getSelectedServices();
-      const selectedSlot =
-        slotInput instanceof HTMLInputElement && slotInput.value ? slotInput.value : 'Not provided';
+      const selectedPackage = bookingForm.querySelector('input[name="package"]:checked');
+      const packageLabel =
+        selectedPackage instanceof HTMLInputElement ? selectedPackage.getAttribute('data-package-label') || selectedPackage.value : 'Not selected';
+      const selectedSlot = slotInput instanceof HTMLInputElement && slotInput.value ? slotInput.value : 'Not selected';
       const clientName = readField('#client-name');
       const clientEmail = readField('#email');
       const clientPhone = readField('#phone');
       const company = readField('#company');
+      const budget = readField('#budget');
+      const referralSource = readField('#referral-source');
       const selectedDate = readField('#event-date');
       const projectType = readField('#project-type');
       const location = readField('#location');
-      const budget = readField('#budget');
-      const referralSource = readField('#referral-source');
       const notes = readField('#notes');
       const subjectName = clientName || 'New Client';
       const subject = `Booking Request - ${subjectName}`;
@@ -1375,15 +760,16 @@
         `Email: ${clientEmail || 'Not provided'}`,
         `Phone: ${clientPhone || 'Not provided'}`,
         `Company: ${company || 'Not provided'}`,
-        `Project Type: ${projectType || 'Not provided'}`,
-        `Services Needed: ${selectedServices.join(', ') || 'Not provided'}`,
-        `Project Date: ${selectedDate || 'Not provided'}`,
+        `Preferred Date: ${selectedDate || 'Not provided'}`,
         `Preferred Time: ${selectedSlot}`,
+        `Project Type: ${projectType || 'Not provided'}`,
+        `Package: ${packageLabel}`,
         `Location: ${location || 'Not provided'}`,
         `Budget: ${budget || 'Not provided'}`,
-        `How They Heard About 830: ${referralSource || 'Not provided'}`,
+        `Services: ${services.join(', ') || 'Not provided'}`,
+        `Heard About Us: ${referralSource || 'Not provided'}`,
         '',
-        'Project Description:',
+        'Project Notes:',
         notes || 'None',
         '',
         `Submitted From: ${window.location.href}`
@@ -1391,24 +777,13 @@
       const body = lines.join('\n');
       const mailtoUrl = `mailto:830productions@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-      isSubmitting = true;
-
-      if (submitButton instanceof HTMLButtonElement) {
-        submitButton.disabled = true;
-        submitButton.textContent = 'Opening Email...';
+      if (successMessage) {
+        successMessage.textContent = 'Opening your email app with all booking details filled in.';
+        successMessage.classList.add('is-visible');
       }
-
-      setBookingStatus('success', 'Opening your email app with the booking details prefilled.');
       window.location.href = mailtoUrl;
-
-      window.setTimeout(() => {
-        isSubmitting = false;
-
-        if (submitButton instanceof HTMLButtonElement) {
-          submitButton.disabled = false;
-          submitButton.textContent = 'Submit Booking Request';
-        }
-      }, 3000);
     });
+
+    updateSummary();
   }
 })();

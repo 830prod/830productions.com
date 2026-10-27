@@ -12,120 +12,106 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Book 830 Productions for photography, videography, events, commercial work, social content, and custom visual projects.">
+  <meta name="description" content="Book 830 Productions for brand films, events, senior portraits and real estate. Send your date and we will send a plan and a quote.">
   <meta name="theme-color" content="#031F33">
-  <meta property="og:title" content="Book | 830 Productions">
-  <meta property="og:description" content="Start a photography or videography project with 830 Productions through a clean booking flow and custom quote request.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://830productions.com/book.html">
-  <meta property="og:image" content="https://830productions.com/images/New/PTU-00175.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Book | 830 Productions">
-  <meta name="twitter:description" content="Start a photography or videography project with 830 Productions through a clean booking flow and custom quote request.">
-  <link rel="canonical" href="https://830productions.com/book.html">
-  <link rel="preconnect" href="https://use.typekit.net">
-  <link rel="preconnect" href="https://p.typekit.net" crossorigin>
   <title>Book | 830 Productions</title>
   <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="https://use.typekit.net/ney4fwq.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261026f">
+  <script>document.documentElement.classList.add('js');</script>
 </head>
-<body>
-  <a class="skip-link" href="#main-content">Skip to content</a>
-  <div class="cursor-glow" aria-hidden="true"></div>
+<body class="book-page">
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
+    <div class="stripe-bar" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
     <div class="header-inner">
-      <a class="brand-mark" href="index.html" aria-label="830 Productions Home">
-        <img src="images/logo-icon.png" alt="">
+      <a class="brand" href="index.html" aria-label="830 Productions home">
+        <img src="images/brand/lockup-white.svg" alt="830 Productions" width="128" height="75">
       </a>
 
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span>Menu</span><span class="menu-toggle-icon" aria-hidden="true"></span>
+      </button>
 
       <nav class="site-nav" id="site-nav" aria-label="Primary">
         <a href="index.html">Home</a>
-        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
         <a href="shop.html">Shop</a>
-        <a href="links.html">Links</a>
-        <a class="nav-book-link" href="book.html" aria-current="page">Book</a>
         <a href="faq.html">FAQ</a>
+        <a href="links.html">Links</a>
+        <a href="contact.html">Contact</a>
         <a href="legal.html">Legal</a>
+        <a class="nav-cta" href="book.html" aria-current="page">Book</a>
       </nav>
     </div>
   </header>
 
-  <main class="page-shell" id="main-content">
-    <section class="hero reveal">
-      <div class="hero-overlay" aria-hidden="true"></div>
 
-      <div class="hero-content">
-        <p class="eyebrow">Book 830 Productions</p>
-        <h1>Lock the brief, map the scope, and launch the project cleanly.</h1>
-        <p>Use the intake form to share the essentials. 830 Productions replies with next steps, schedule direction, and a custom quote based on the actual project.</p>
+  <main id="main">
+    <section class="page-hero">
+      <div class="page-hero-media" aria-hidden="true">
+        <img src="images/web/campus-chapel-l.jpg" alt="">
+      </div>
+      <div class="wrap">
+        <span class="label">Book 830 Productions</span>
+        <h1 class="display">Lock in your date.</h1>
+        <p class="lede">Tell us what you’re making. We will come back with the scope, the timeline and an exact quote.</p>
       </div>
     </section>
 
-    <section class="section reveal">
-      <div class="section-head">
-        <div>
-          <p class="section-kicker">Project Intake</p>
-          <h2>Simple, professional, and built around the real production brief.</h2>
-        </div>
-        <p>Required fields stay clear, the form validates before submission, and the booking summary updates live as the request comes together.</p>
-      </div>
+    <section class="section">
+      <div class="wrap booking-layout">
+        <article class="form-panel reveal">
+          <span class="label">Project Intake</span>
+          <h2>Booking form</h2>
+          <p>Fill this in and press send. Your email app opens with everything ready to go.</p>
 
-      <div class="booking-layout">
-        <article class="form-panel">
-          <h3>Booking Form</h3>
-          <p class="booking-form-intro">Fields marked <span class="required-dot">*</span> are required.</p>
-
-          <form class="booking-form" action="mailto:830productions@gmail.com" method="post" enctype="text/plain" novalidate>
+          <form class="booking-form" action="mailto:830productions@gmail.com" method="post" enctype="text/plain">
             <div class="form-grid">
               <div class="field">
-                <label for="client-name">Full Name <small class="is-required">*</small></label>
-                <input id="client-name" name="client_name" type="text" autocomplete="name" placeholder="Your name" required>
+                <label for="client-name">Full name</label>
+                <input id="client-name" name="client_name" type="text" placeholder="Your name" autocomplete="name" required>
               </div>
 
               <div class="field">
-                <label for="email">Email <small class="is-required">*</small></label>
-                <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
               </div>
 
               <div class="field">
                 <label for="phone">Phone</label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555">
+                <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555" autocomplete="tel">
               </div>
 
               <div class="field">
                 <label for="company">Company</label>
-                <input id="company" name="company" type="text" autocomplete="organization" placeholder="Company or brand name">
+                <input id="company" name="company" type="text" placeholder="Company or brand name" autocomplete="organization">
               </div>
 
               <div class="field">
-                <label for="project-type">Project Type <small class="is-required">*</small></label>
-                <select id="project-type" name="project_type" required>
-                  <option value="">Select a project type</option>
-                  <option value="Commercial">Commercial</option>
-                  <option value="Event">Event</option>
+                <label for="event-date">Preferred date</label>
+                <input id="event-date" name="event_date" type="date" required>
+              </div>
+
+              <div class="field">
+                <label for="project-type">Project type</label>
+                <select id="project-type" name="project_type">
+                  <option value="Brand Campaign">Brand Campaign</option>
+                  <option value="Senior Portraits">Senior Portraits</option>
+                  <option value="Real Estate Package">Real Estate Package</option>
+                  <option value="Event Coverage">Event Coverage</option>
                   <option value="Wedding">Wedding</option>
-                  <option value="Real Estate">Real Estate</option>
-                  <option value="Portrait">Portrait</option>
                   <option value="Product">Product</option>
                   <option value="Social Media">Social Media</option>
                   <option value="Music Video">Music Video</option>
                   <option value="Corporate">Corporate</option>
-                  <option value="Other">Other</option>
+                  <option value="Custom">Custom Production</option>
                 </select>
-              </div>
-
-              <div class="field">
-                <label for="event-date">Project Date <small class="is-required">*</small></label>
-                <input id="event-date" name="event_date" type="date" required>
-              </div>
-
-              <div class="field wide">
-                <label for="location">Location</label>
-                <input id="location" name="location" type="text" autocomplete="address-level2" placeholder="City, venue, or address">
               </div>
 
               <div class="field">
@@ -133,88 +119,99 @@
                 <select id="budget" name="budget">
                   <option value="">Select a range</option>
                   <option value="Under $1,000">Under $1,000</option>
-                  <option value="$1,000 - $2,500">$1,000 - $2,500</option>
-                  <option value="$2,500 - $5,000">$2,500 - $5,000</option>
+                  <option value="$1,000 - $2,500">$1,000 – $2,500</option>
+                  <option value="$2,500 - $5,000">$2,500 – $5,000</option>
                   <option value="$5,000+">$5,000+</option>
-                  <option value="Custom Quote / Not Sure Yet">Custom Quote / Not Sure Yet</option>
+                  <option value="Custom Quote / Not Sure Yet">Not sure yet</option>
                 </select>
               </div>
 
-              <div class="field">
-                <label for="referral-source">How Did You Hear About Us?</label>
+              <div class="field wide">
+                <label for="location">Shoot location</label>
+                <input id="location" name="location" type="text" placeholder="City, venue or address">
+              </div>
+
+              <div class="field wide">
+                <label for="referral-source">How did you hear about us?</label>
                 <select id="referral-source" name="referral_source">
                   <option value="">Select an option</option>
                   <option value="Instagram">Instagram</option>
                   <option value="Search">Search</option>
                   <option value="Referral">Referral</option>
-                  <option value="Repeat Client">Repeat Client</option>
-                  <option value="Links Page">Links Page</option>
+                  <option value="Repeat Client">Repeat client</option>
+                  <option value="Links Page">Links page</option>
                   <option value="Other">Other</option>
                 </select>
               </div>
 
-              <fieldset class="field wide checklist-fieldset">
-                <legend>Services Needed <small class="is-required">*</small></legend>
-                <p class="field-hint">Choose at least one service.</p>
-                <div class="checkbox-grid">
-                  <label class="check-option">
-                    <input type="checkbox" name="services" value="Videography">
-                    <span>Videography</span>
+              <fieldset class="field wide" data-services-group>
+                <legend class="field-label">Services needed</legend>
+                <p class="field-hint" id="services-hint">Choose at least one.</p>
+                <div class="check-grid">
+                  <label class="check-option"><input type="checkbox" name="services" value="Videography"><span>Videography</span></label>
+                  <label class="check-option"><input type="checkbox" name="services" value="Photography"><span>Photography</span></label>
+                  <label class="check-option"><input type="checkbox" name="services" value="Editing"><span>Editing</span></label>
+                  <label class="check-option"><input type="checkbox" name="services" value="Color Grading"><span>Colour grading</span></label>
+                  <label class="check-option"><input type="checkbox" name="services" value="Social Content"><span>Social content</span></label>
+                  <label class="check-option"><input type="checkbox" name="services" value="Full Production"><span>Full production</span></label>
+                  <label class="check-option"><input type="checkbox" name="services" value="Other"><span>Other</span></label>
+                </div>
+              </fieldset>
+
+              <fieldset class="field wide">
+                <legend class="field-label">Package</legend>
+                <div class="package-grid">
+                  <label class="package-option is-selected">
+                    <input type="radio" name="package" value="Signature Photo + Film" data-package-label="Signature Photo + Film" checked>
+                    <strong>Signature Photo + Film</strong>
+                    <small>Full-day coverage and a highlight film</small>
                   </label>
-                  <label class="check-option">
-                    <input type="checkbox" name="services" value="Photography">
-                    <span>Photography</span>
+
+                  <label class="package-option">
+                    <input type="radio" name="package" value="Event Story Package" data-package-label="Event Story Package">
+                    <strong>Event Story Package</strong>
+                    <small>Recap reel and social cutdowns</small>
                   </label>
-                  <label class="check-option">
-                    <input type="checkbox" name="services" value="Editing">
-                    <span>Editing</span>
+
+                  <label class="package-option">
+                    <input type="radio" name="package" value="Brand Launch Package" data-package-label="Brand Launch Package">
+                    <strong>Brand Launch Package</strong>
+                    <small>Commercial sequence and stills</small>
                   </label>
-                  <label class="check-option">
-                    <input type="checkbox" name="services" value="Color Grading">
-                    <span>Color Grading</span>
-                  </label>
-                  <label class="check-option">
-                    <input type="checkbox" name="services" value="Social Content">
-                    <span>Social Content</span>
-                  </label>
-                  <label class="check-option">
-                    <input type="checkbox" name="services" value="Full Production">
-                    <span>Full Production</span>
-                  </label>
-                  <label class="check-option">
-                    <input type="checkbox" name="services" value="Other">
-                    <span>Other</span>
+
+                  <label class="package-option">
+                    <input type="radio" name="package" value="Custom Scope" data-package-label="Custom Scope">
+                    <strong>Custom Scope</strong>
+                    <small>Built around exactly what you need</small>
                   </label>
                 </div>
               </fieldset>
 
-              <div class="field wide">
-                <label>Preferred Time Window</label>
+              <div class="field wide" role="group" aria-labelledby="slot-label">
+                <span class="field-label" id="slot-label">Preferred time</span>
                 <div class="slot-grid">
-                  <button type="button" class="slot-button" data-slot="Morning (9:00 AM)">Morning</button>
-                  <button type="button" class="slot-button" data-slot="Midday (12:00 PM)">Midday</button>
-                  <button type="button" class="slot-button" data-slot="Evening (4:00 PM)">Evening</button>
+                  <button type="button" class="slot-button" data-slot="Morning (9:00 AM)" aria-pressed="false">Morning</button>
+                  <button type="button" class="slot-button" data-slot="Midday (12:00 PM)" aria-pressed="false">Midday</button>
+                  <button type="button" class="slot-button" data-slot="Evening (4:00 PM)" aria-pressed="false">Evening</button>
                 </div>
                 <input type="hidden" name="selected_slot" id="selected-slot">
               </div>
 
               <div class="field wide">
-                <label for="notes">Project Description <small class="is-required">*</small></label>
-                <textarea id="notes" name="notes" rows="5" placeholder="Share the goals, audience, visual direction, deliverables, and deadline." required></textarea>
+                <label for="notes">Project notes</label>
+                <textarea id="notes" name="notes" rows="4" placeholder="Your goals, style references and deadline."></textarea>
               </div>
             </div>
 
-            <div class="form-actions-row">
-              <button class="btn-primary" type="submit" data-booking-submit>Submit Booking Request</button>
-              <a class="btn-secondary" href="mailto:830productions@gmail.com">Email Instead</a>
-            </div>
-            <p class="form-status" data-booking-status role="status" aria-live="polite"></p>
+            <button class="btn btn-primary" type="submit">Send booking request</button>
+            <p class="notice-success" role="status">Opening your email app with all booking details filled in.</p>
           </form>
         </article>
 
-        <aside class="summary-panel">
-          <h3>Live Summary</h3>
-          <p>Your selections update here in real time.</p>
+        <aside class="summary-panel reveal">
+          <span class="label">Live Summary</span>
+          <h2>Your shoot</h2>
+          <p>Updates as you fill in the form.</p>
 
           <ul class="summary-list">
             <li>
@@ -222,16 +219,8 @@
               <strong data-summary="name">Your name</strong>
             </li>
             <li>
-              <span>Company</span>
-              <strong data-summary="company">Company or brand</strong>
-            </li>
-            <li>
-              <span>Project Type</span>
-              <strong data-summary="project">Select a project type</strong>
-            </li>
-            <li>
-              <span>Services</span>
-              <strong data-summary="services">Choose at least one</strong>
+              <span>Package</span>
+              <strong data-summary="package">Signature Photo + Film</strong>
             </li>
             <li>
               <span>Date</span>
@@ -242,39 +231,70 @@
               <strong data-summary="location">Project location</strong>
             </li>
             <li>
-              <span>Budget</span>
-              <strong data-summary="budget">Budget range</strong>
-            </li>
-            <li>
-              <span>Time Window</span>
+              <span>Time</span>
               <strong data-summary="slot">Pick a time</strong>
             </li>
           </ul>
 
-          <div class="social-strip">
+          <div class="link-list">
             <a href="mailto:book@830productions.com">book@830productions.com</a>
-            <a href="links.html">Official Links</a>
-            <a href="faq.html">Booking FAQ</a>
+            <a href="https://www.instagram.com/830_productions" target="_blank" rel="noreferrer">@830_productions</a>
+            <a href="faq.html">Questions first? Read the FAQ</a>
           </div>
         </aside>
       </div>
     </section>
-
-    <section class="section reveal">
-      <div class="section-head">
-        <div>
-          <p class="section-kicker">Process</p>
-          <h2>What happens after the inquiry.</h2>
-        </div>
-        <p>The same clear workflow guides the quote, production, post, and final delivery.</p>
-      </div>
-      <div class="process-grid process-grid-expanded" data-process-grid></div>
-    </section>
   </main>
 
-  <footer class="site-footer" data-site-footer></footer>
+  <footer class="site-footer">
+    <img class="footer-watermark" src="images/brand/reel-harbor.svg" alt="" aria-hidden="true">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="images/brand/lockup-white.svg" alt="830 Productions" width="150" height="88">
+          <p>Stories on film, told with care.</p>
+        </div>
 
-  <script src="site-data.js" defer></script>
+        <nav class="footer-nav" aria-label="Footer">
+          <div>
+            <span class="label">Studio</span>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="book.html">Book</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="label">More</span>
+            <ul>
+              <li><a href="shop.html">Shop</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="links.html">Links</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="newsletter.html">Newsletter</a></li>
+              <li><a href="legal.html">Legal</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="label">Contact</span>
+            <ul>
+              <li><a href="mailto:830productions@gmail.com">830productions@gmail.com</a></li>
+              <li><a href="https://www.instagram.com/830_productions" target="_blank" rel="noreferrer">Instagram <span class="ext" aria-hidden="true">&#8599;</span></a></li>
+              <li><a href="https://shop.830productions.com" target="_blank" rel="noreferrer">Online store <span class="ext" aria-hidden="true">&#8599;</span></a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer-base">
+        <p>© <span data-year></span> 830 Productions</p>
+        <p>Every frame considered.</p>
+      </div>
+    </div>
+  </footer>
+
+
   <script src="script.js" defer></script>
 </body>
 </html>

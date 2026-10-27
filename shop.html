@@ -11,17 +11,271 @@
     gtag('config', 'G-YYKNW9X0WF');
   </script>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0;url=https://shop.830productions.com">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Redirecting to the 830 Productions shop.">
-  <title>Redirecting | 830 Productions</title>
+  <meta name="description" content="Presets, LUTs and merch from 830 Productions, with secure Stripe checkout.">
+  <meta name="theme-color" content="#031F33">
+  <title>Shop | 830 Productions</title>
   <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="https://use.typekit.net/ney4fwq.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261026f">
+  <script>document.documentElement.classList.add('js');</script>
 </head>
-<body>
-  <main class="page-shell" style="padding-top: 3rem;">
-    <p>Redirecting to the shop. If it does not load, <a href="https://shop.830productions.com">click here</a>.</p>
+<body class="shop-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="stripe-bar" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="830 Productions home">
+        <img src="images/brand/lockup-white.svg" alt="830 Productions" width="128" height="75">
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span>Menu</span><span class="menu-toggle-icon" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="shop.html" aria-current="page">Shop</a>
+        <a href="faq.html">FAQ</a>
+        <a href="links.html">Links</a>
+        <a href="contact.html">Contact</a>
+        <a href="legal.html">Legal</a>
+        <a class="nav-cta" href="book.html">Book</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main id="main">
+    <section class="hero-home page-split">
+      <div class="wrap">
+        <div class="hero-copy reveal">
+          <span class="label">830 Shop</span>
+          <h1 class="display">Our grade, in your edit.</h1>
+          <p class="lede">Presets, LUTs and merch from the studio. Built from the looks we use on real jobs.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#products">Browse products</a>
+            <a class="btn btn-secondary" href="book.html">Bundle with a booking</a>
+          </div>
+        </div>
+
+        <div class="story-frame reveal">
+          <video data-autoplay autoplay muted loop playsinline preload="metadata" poster="images/web/ad-shop-poster.jpg" aria-label="830 Shop, a short film">
+            <source src="videos/ad-shop.mp4" type="video/mp4">
+          </video>
+          <div class="title-bar">
+            <div>
+              <span class="label">Now Showing</span>
+              <strong>Grade like 830.</strong>
+            </div>
+            <button class="sound-toggle" type="button" data-sound-toggle aria-pressed="false">Sound on</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--ice" id="products">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="label">Creative Products</span>
+            <h2 class="heading">Presets, LUTs and merch.</h2>
+          </div>
+          <p class="lede">Every purchase runs through secure Stripe checkout.</p>
+        </div>
+
+        <div class="filter-row reveal" role="group" aria-label="Filter products">
+          <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter-button" type="button" data-filter="presets" aria-pressed="false">Presets</button>
+          <button class="filter-button" type="button" data-filter="luts" aria-pressed="false">LUTs</button>
+          <button class="filter-button" type="button" data-filter="merch" aria-pressed="false">Merch</button>
+        </div>
+
+        <div class="shop-layout">
+          <div class="product-grid reveal">
+            <article class="product-card" data-category="presets">
+              <div class="product-meta">
+                <span class="label">Photo Presets</span>
+                <span class="product-price">$5.99</span>
+              </div>
+              <h3>Editorial Photo Presets</h3>
+              <p>Editorial colour for portraits, events and brand work.</p>
+              <button class="btn btn-primary product-action" type="button" data-stripe-link-id="editorial-photo-presets">Buy with Stripe</button>
+            </article>
+
+            <article class="product-card" data-category="luts">
+              <div class="product-meta">
+                <span class="label">LUT Pack</span>
+                <span class="product-price">$5.99</span>
+              </div>
+              <h3>Night Luxe Color LUTs</h3>
+              <p>Moody, clean contrast for night scenes and social exports.</p>
+              <button class="btn btn-primary product-action" type="button" data-stripe-link-id="night-luxe-color-luts">Buy with Stripe</button>
+            </article>
+
+            <article class="product-card" data-category="luts">
+              <div class="product-meta">
+                <span class="label">Video LUT Pack</span>
+                <span class="product-price">$39.99</span>
+              </div>
+              <h3>Signature LUT Pack (Video)</h3>
+              <p>The core LUT set from our own video colour pipeline.</p>
+              <button class="btn btn-primary product-action" type="button" data-stripe-link-id="signature-lut-pack-video">Buy with Stripe</button>
+            </article>
+
+            <article class="product-card" data-category="luts">
+              <div class="product-meta">
+                <span class="label">Photo LUT Pack</span>
+                <span class="product-price">$25.99</span>
+              </div>
+              <h3>Signature LUT Pack (Photo)</h3>
+              <p>Signature looks for photo sets that need one consistent grade.</p>
+              <button class="btn btn-primary product-action" type="button" data-stripe-link-id="signature-lut-pack-photo">Buy with Stripe</button>
+            </article>
+
+            <article class="product-card" data-category="merch">
+              <div class="product-meta">
+                <span class="label">Merch</span>
+                <span class="product-price">$45.00</span>
+              </div>
+              <h3>830 Productions Sweatshirt</h3>
+              <p>Heavy fleece sweatshirt with the 830 Productions lockup.</p>
+              <button class="btn btn-primary product-action" type="button" data-stripe-link-id="merch-sweatshirt">Buy with Stripe</button>
+            </article>
+
+            <article class="product-card" data-category="merch">
+              <div class="product-meta">
+                <span class="label">Merch</span>
+                <span class="product-price">$30.00</span>
+              </div>
+              <h3>830 Productions Patch Hat</h3>
+              <p>Structured cap with a stitched patch logo.</p>
+              <button class="btn btn-primary product-action" type="button" data-stripe-link-id="merch-patch-hat">Buy with Stripe</button>
+            </article>
+
+            <article class="product-card" data-category="merch">
+              <div class="product-meta">
+                <span class="label">Merch</span>
+                <span class="product-price">$8.00</span>
+              </div>
+              <h3>830 Productions Stickers</h3>
+              <p>Durable logo stickers for cases, gear and desks.</p>
+              <button class="btn btn-primary product-action" type="button" data-stripe-link-id="merch-stickers">Buy with Stripe</button>
+            </article>
+          </div>
+
+          <aside class="inquiry-card reveal">
+            <span class="label">Stripe Checkout</span>
+            <h2>How buying works</h2>
+            <p>Every purchase goes through a secure, Stripe-hosted checkout page.</p>
+
+            <ul class="picked-list">
+              <li>Press <strong>Buy with Stripe</strong> on any item to open checkout.</li>
+              <li>Stripe emails your receipt as soon as payment clears.</li>
+              <li>Items marked <strong>Coming Soon</strong> go live with the next drop.</li>
+            </ul>
+
+            <p class="stripe-status" data-stripe-status>Stripe links are loading.</p>
+            <a class="btn btn-secondary" href="book.html">Need a custom package?</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--harbor page-split" id="lutviewer">
+      <div class="wrap">
+        <div class="reveal">
+          <span class="label">Free For Mac</span>
+          <h2 class="heading">LUTviewer.</h2>
+          <p class="lede">Compare LUTs side by side before you buy. Free and open source. No account, no subscription.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="https://830prod.github.io/LUTviewer/" target="_blank" rel="noreferrer" aria-label="Get LUTviewer (opens in a new tab)">Get LUTviewer <span class="ext" aria-hidden="true">&#8599;</span></a>
+          </div>
+        </div>
+
+        <div class="story-frame reveal">
+          <video data-autoplay autoplay muted loop playsinline preload="metadata" poster="images/web/ad-lutviewer-poster.jpg" aria-label="LUTviewer, a short film">
+            <source src="videos/ad-lutviewer.mp4" type="video/mp4">
+          </video>
+          <div class="title-bar">
+            <div>
+              <span class="label">Now Showing</span>
+              <strong>Start comparing.</strong>
+            </div>
+            <button class="sound-toggle" type="button" data-sound-toggle aria-pressed="false">Sound on</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap cta-band reveal">
+        <div>
+          <span class="label">Custom Packs</span>
+          <h2 class="heading">A look built for your team.</h2>
+          <p>We build private LUTs, presets and editing templates for in-house creators.</p>
+        </div>
+        <a class="btn btn-primary" href="book.html">Request a custom pack</a>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <img class="footer-watermark" src="images/brand/reel-harbor.svg" alt="" aria-hidden="true">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="images/brand/lockup-white.svg" alt="830 Productions" width="150" height="88">
+          <p>Stories on film, told with care.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer">
+          <div>
+            <span class="label">Studio</span>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="book.html">Book</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="label">More</span>
+            <ul>
+              <li><a href="shop.html">Shop</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="links.html">Links</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="newsletter.html">Newsletter</a></li>
+              <li><a href="legal.html">Legal</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="label">Contact</span>
+            <ul>
+              <li><a href="mailto:830productions@gmail.com">830productions@gmail.com</a></li>
+              <li><a href="https://www.instagram.com/830_productions" target="_blank" rel="noreferrer">Instagram <span class="ext" aria-hidden="true">&#8599;</span></a></li>
+              <li><a href="https://shop.830productions.com" target="_blank" rel="noreferrer">Online store <span class="ext" aria-hidden="true">&#8599;</span></a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer-base">
+        <p>© <span data-year></span> 830 Productions</p>
+        <p>Every frame considered.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="stripe-links.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
